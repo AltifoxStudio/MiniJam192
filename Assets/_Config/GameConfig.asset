@@ -16,7 +16,7 @@ MonoBehaviour:
   maxPlayerSize: 2
   bunnyMS: 1.5
   bunnyJumpSpeed: 3
-  bunnyDashSpeed: 3
+  bunnyDashSpeed: 5
   minPlayerSize: 0.5
   vaccumAngle: 90
   vaccumRadius: 0.5
