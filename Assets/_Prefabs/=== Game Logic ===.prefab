@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1506223556726406768}
   - component: {fileID: 1802095452154189619}
   - component: {fileID: 1577680961014998704}
+  - component: {fileID: 4152021520377006070}
   m_Layer: 0
   m_Name: PlayerCollider
   m_TagString: Untagged
@@ -153,6 +154,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
+  gravityConstant: 9.81
+  groundRaycastDistance: 0.2
+  groundSphereCastRadius: 0.2
+--- !u!54 &4152021520377006070
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282842104749334714}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2295275976634660918
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +261,7 @@ GameObject:
   - component: {fileID: 8245518012051869960}
   - component: {fileID: 7239600242294254491}
   - component: {fileID: 2882393609407570478}
+  - component: {fileID: 2846289535047666889}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -355,3 +387,17 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &2846289535047666889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659133569250762991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1d3eda31a97a614cb7dfb6680927f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1577680961014998704}
+  height: 1
