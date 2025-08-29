@@ -70,7 +70,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void Update() {
+    private void Update()
+    {
         ApplyPlayerScale();
     }
 
