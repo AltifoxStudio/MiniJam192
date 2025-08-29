@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     private bool isDashing;
     private bool isGrounded;
+
+    private float verticalSpeed = 0f;
     public float gravityConstant = 9.81f;
     public float groundRaycastDistance = 0.2f;
     public float groundSphereCastRadius = 0.2f;
@@ -38,25 +40,26 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float vecticalSpeed = 0f;
         isGrounded = CheckGround();
+        Debug.Log(isGrounded);
         if (!isGrounded)
         {
-            vecticalSpeed = EvalFallSpeed();
-            Debug.Log(vecticalSpeed);
+            EvalFallSpeed();
+        }
+        else
+        {
+            verticalSpeed = 0f;
         }
         
         if (isDashing) return;
 
-        if (jumpAction.IsPressed())
+        if (jumpAction.IsPressed() && isGrounded)
         {
-            vecticalSpeed = 1f;
-            Debug.Log("Jump !");
+            verticalSpeed = 20f;
         }
-        Debug.Log(isGrounded);
 
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
-        Vector3 move3D = new Vector3(moveValue.x, vecticalSpeed, moveValue.y);
+        Vector3 move3D = new Vector3(moveValue.x, verticalSpeed, moveValue.y);
         rigidbody.linearVelocity = Vector3.Normalize(move3D) * moveSpeed;
     }
 
@@ -71,10 +74,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private float EvalFallSpeed()
+    private void EvalFallSpeed()
     {
-        float currentSpeed = rigidbody.linearVelocity.y;
-        return currentSpeed - gravityConstant * Time.deltaTime;
+        verticalSpeed -= gravityConstant * Time.deltaTime;
     }
 
 
