@@ -3,6 +3,7 @@ using UnityEngine;
 public class DustBalls : MonoBehaviour
 {
     private bool collected = false;
+    public float dustAmount = 100;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -10,6 +11,7 @@ public class DustBalls : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             collected = true;
+            other.gameObject.GetComponent<PlayerController>().GiveDust(dustAmount);
             Debug.Log("Dust ball collected by the Player!");
 
             // Optional: Destroy the dust ball after it's collected

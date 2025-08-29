@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Renderer rend;
     private MaterialPropertyBlock bunnyTexture;
+    private float dustAmount = 100f;
+    private float dustSpendMoving;
 
     private Coroutine dashCoroutine;
 
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
         moveSpeed = gameConfig.bunnyMS;
         jumpSpeed = gameConfig.bunnyJumpSpeed;
         dashSpeed = gameConfig.bunnyDashSpeed;
+        dustSpendMoving = gameConfig.dustSpendMoving;
 
         rb = GetComponent<Rigidbody>();
     }
@@ -65,6 +68,10 @@ public class PlayerController : MonoBehaviour
         dashAction = InputSystem.actions.FindAction("Dash");
 
 
+    }
+
+    private void Update() {
+        ApplyPlayerScale();
     }
 
     private void FixedUpdate()
@@ -99,15 +106,12 @@ public class PlayerController : MonoBehaviour
         {
             case MoveDirection.Up:
                 bunnyTexture.SetTexture("_playerSprite", MoveUpTextures[0]);
-                Debug.Log(bunnyTexture.GetTexture("_playerSprite"));
                 break;
             case MoveDirection.Down:
                 bunnyTexture.SetTexture("_playerSprite", MoveDownTextures[0]);
-                Debug.Log(bunnyTexture.GetTexture("_playerSprite"));
                 break;
             case MoveDirection.Side:
                 bunnyTexture.SetTexture("_playerSprite", MoveSideTextures[0]);
-                Debug.Log(bunnyTexture.GetTexture("_playerSprite"));
                 break;
             default:
                 break;
@@ -115,8 +119,10 @@ public class PlayerController : MonoBehaviour
         rend.SetPropertyBlock(bunnyTexture);
         Vector3 move3D = new Vector3(moveValue.x, verticalSpeed, moveValue.y);
         rb.linearVelocity = move3D * moveSpeed;
+
         Quaternion lookLeft = Quaternion.Euler(0f, 0f, 0f);
         Quaternion lookRight = Quaternion.Euler(0f, 180f, 0f);
+
         if (moveValue.x > 0)
         {
             playerQuad.transform.rotation = lookLeft;
@@ -126,6 +132,12 @@ public class PlayerController : MonoBehaviour
             playerQuad.transform.rotation = lookRight;
         }
         transform.LookAt(lookAtTarget.transform);
+    }
+
+    private void ApplyPlayerScale()
+    {
+        float ScaleFactor = dustAmount / 100;
+        playerQuad.transform.localScale = new Vector3(ScaleFactor, ScaleFactor, ScaleFactor);
     }
 
     private bool CheckGround()
@@ -150,6 +162,11 @@ public class PlayerController : MonoBehaviour
         }
 
         return MoveDirection.Down;
+    }
+
+    public void GiveDust(float Amout)
+    {
+        dustAmount += Amout;
     }
 
 
