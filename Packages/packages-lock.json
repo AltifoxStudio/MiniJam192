@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.altifoxstudio.altifoxaudio": {
+      "version": "https://github.com/AltifoxStudio/Altifox-Audio-Manager.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0cad9b634b5f6ea442a8ad3066fd06d42d27e1e8"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.8",
       "depth": 0,
