@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d15c4be0826c04f9adb2cd130dbff9, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  numberOfDustToGather: 15
+  maxPlayerSize: 2
+  bunnyMS: 1
+  minPlayerSize: 0.5
+  vaccumAngle: 90
+  vaccumRadius: 0.5
+  vacuumSpeed: 1.2
