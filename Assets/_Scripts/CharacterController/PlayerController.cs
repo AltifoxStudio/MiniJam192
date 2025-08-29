@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public GameConfig gameConfig;
     public GameObject lookAtTarget;
+    public GameObject playerQuad;
 
     // Gameplay variables
     private float moveSpeed;
@@ -76,6 +77,16 @@ public class PlayerController : MonoBehaviour
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         Vector3 move3D = new Vector3(moveValue.x, verticalSpeed, moveValue.y);
         rb.linearVelocity = move3D * moveSpeed;
+        Quaternion lookLeft = Quaternion.Euler(0f, 0f, 0f);
+        Quaternion lookRight = Quaternion.Euler(0f, 180f, 0f);
+        if (moveValue.x > 0)
+        {
+            playerQuad.transform.rotation = lookLeft;
+        }
+        else if (moveValue.x < 0)
+        {
+            playerQuad.transform.rotation = lookRight;
+        }
         transform.LookAt(lookAtTarget.transform);
     }
 
