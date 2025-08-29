@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2213098034218387278}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20187242, y: -0, z: -0, w: 0.97941184}
+  m_LocalRotation: {x: 0, y: 0.9794118, z: -0.20187286, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7342509027759368552}
-  m_LocalEulerAnglesHint: {x: 23.293, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 23.293, y: 180, z: 0}
 --- !u!33 &8386758424623509551
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
+  lookAtTarget: {fileID: 7659133569250762991}
   gravityConstant: 9.81
   groundRaycastDistance: 0.1
   groundSphereCastRadius: 0.02
@@ -213,7 +214,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &2295275976634660918
@@ -431,6 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d3eda31a97a614cb7dfb6680927f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1577680961014998704}
+  player: {fileID: 7342509027759368552}
   height: 0.4
   yOffset: 0.5
+  smoothTime: 0.05

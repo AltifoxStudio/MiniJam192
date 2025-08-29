@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     InputAction dashAction;
 
     public GameConfig gameConfig;
+    public GameObject lookAtTarget;
 
     // Gameplay variables
     private float moveSpeed;
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         Vector3 move3D = new Vector3(moveValue.x, verticalSpeed, moveValue.y);
         rb.linearVelocity = move3D * moveSpeed;
+        transform.LookAt(lookAtTarget.transform);
     }
 
     private bool CheckGround()
@@ -90,7 +92,6 @@ public class PlayerController : MonoBehaviour
 
     private void EvalFallSpeed()
     {
-        Debug.Log($"Free Falling!! {verticalSpeed}");
         verticalSpeed -= gravityConstant * Time.deltaTime;
     }
 
