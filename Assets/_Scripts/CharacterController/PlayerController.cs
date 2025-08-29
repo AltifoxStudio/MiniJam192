@@ -2,6 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
+public enum MoveDirection
+{
+    Up,
+    Down,
+    Side
+}
+
 public class PlayerController : MonoBehaviour
 {
     // Actions
@@ -17,14 +24,20 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     private float jumpSpeed;
     private float dashSpeed;
-    private bool isDashing;
     private bool isGrounded;
+
+    // Animation 
+    public Texture2D[] MoveSideTextures;
+    public Texture2D[] MoveUpTextures;
+    public Texture2D[] MoveDownTextures;
 
     private float verticalSpeed = 0f;
     public float gravityConstant = 9.81f;
     public float groundRaycastDistance = 0.2f;
     public float groundSphereCastRadius = 0.2f;
     private Rigidbody rb;
+    private Renderer rend;
+    private MaterialPropertyBlock bunnyTexture;
 
     private Coroutine dashCoroutine;
 
@@ -39,6 +52,13 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        rend = GetComponentInChildren<Renderer>();
+        if (rend == null)
+        {
+            Debug.LogError("Renderer component not found on this GameObject.");
+            return;
+        }
+        bunnyTexture = new MaterialPropertyBlock();
         // Find the references to the "Move" and "Jump" actions
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
@@ -50,7 +70,6 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = CheckGround();
-        Debug.Log(isGrounded);
         if (!isGrounded)
         {
             EvalFallSpeed();
@@ -75,6 +94,25 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
+        MoveDirection moveDirection = evalMoveDirection(moveValue);
+        switch (moveDirection)
+        {
+            case MoveDirection.Up:
+                bunnyTexture.SetTexture("_playerSprite", MoveUpTextures[0]);
+                Debug.Log(bunnyTexture.GetTexture("_playerSprite"));
+                break;
+            case MoveDirection.Down:
+                bunnyTexture.SetTexture("_playerSprite", MoveDownTextures[0]);
+                Debug.Log(bunnyTexture.GetTexture("_playerSprite"));
+                break;
+            case MoveDirection.Side:
+                bunnyTexture.SetTexture("_playerSprite", MoveSideTextures[0]);
+                Debug.Log(bunnyTexture.GetTexture("_playerSprite"));
+                break;
+            default:
+                break;
+        }
+        rend.SetPropertyBlock(bunnyTexture);
         Vector3 move3D = new Vector3(moveValue.x, verticalSpeed, moveValue.y);
         rb.linearVelocity = move3D * moveSpeed;
         Quaternion lookLeft = Quaternion.Euler(0f, 0f, 0f);
@@ -100,6 +138,20 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private MoveDirection evalMoveDirection(Vector2 directions)
+    {
+        if (Mathf.Abs(directions.x) > Mathf.Abs(directions.y))
+        {
+            return MoveDirection.Side;
+        }
+        else if (directions.y > 0)
+        {
+            return MoveDirection.Up;
+        }
+
+        return MoveDirection.Down;
+    }
+
 
     private void EvalFallSpeed()
     {
@@ -108,10 +160,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator CR_Dash(float dashTime)
     {
-        isDashing = true;
         moveSpeed = dashSpeed;
         yield return new WaitForSeconds(dashTime);
-        isDashing = false;
         moveSpeed = gameConfig.bunnyMS;
     }
 

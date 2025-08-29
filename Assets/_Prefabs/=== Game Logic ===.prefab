@@ -188,6 +188,12 @@ MonoBehaviour:
   gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
   lookAtTarget: {fileID: 7659133569250762991}
   playerQuad: {fileID: 2213098034218387278}
+  MoveSideTextures:
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  MoveUpTextures:
+  - {fileID: 2800000, guid: 7db7dd154c4a5804e831c253f899085c, type: 3}
+  MoveDownTextures:
+  - {fileID: 2800000, guid: a17524aaa794c1c4fbfbef8f83bf362d, type: 3}
   gravityConstant: 9.81
   groundRaycastDistance: 0.1
   groundSphereCastRadius: 0.02
