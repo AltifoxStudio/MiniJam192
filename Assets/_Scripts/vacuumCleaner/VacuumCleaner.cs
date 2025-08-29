@@ -27,10 +27,6 @@ public class VacuumCleaner : MonoBehaviour
 
     private void Update()
     {
-        // Example: Move the vacuum forward (optional, based on your game logic)
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-        
-        // Continuously check for and suck objects in the cone
         SuckObjects();
     }
 
@@ -78,7 +74,7 @@ public class VacuumCleaner : MonoBehaviour
 
             // The dot product of two normalized vectors is the cosine of the angle between them.
             // If the dot product is greater than our pre-calculated cosine, it's within the angle.
-            if (Vector3.Dot(transform.forward, directionToCollider) >= coneAngleCos)
+            if (Vector3.Dot(-transform.forward, directionToCollider) >= coneAngleCos)
             {
                 objectsInCone.Add(collider);
             }
@@ -100,7 +96,7 @@ public class VacuumCleaner : MonoBehaviour
         }
 
         Gizmos.color = Color.cyan;
-        Vector3 forward = transform.forward;
+        Vector3 forward = -transform.forward;
         Vector3 position = transform.position;
 
         Quaternion leftRayRotation = Quaternion.AngleAxis(-angle / 2f, transform.up);

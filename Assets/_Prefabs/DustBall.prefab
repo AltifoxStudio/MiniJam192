@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3588605658137458079}
   - component: {fileID: 2936751020475990506}
   - component: {fileID: 483814153361346609}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DustBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8e75857d0ea6941b464eea1aed6019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dustAmount: 20

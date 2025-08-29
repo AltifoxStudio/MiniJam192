@@ -91,5 +91,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8491517981347286820}
   m_SourcePrefab: {fileID: 100100000, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+--- !u!1 &1646841719021387039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+  m_PrefabInstance: {fileID: 1881281989653102670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8491517981347286820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646841719021387039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31c6ba88cc721e45afc50eb31216ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
+  suckableLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  suckForce: 50
