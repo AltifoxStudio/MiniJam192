@@ -48,9 +48,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6902573867230041995, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9890dc3e0425a1d4dac6be19e598bf97, type: 2}
+    - target: {fileID: -4683669308469848369, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9890dc3e0425a1d4dac6be19e598bf97, type: 2}
+    - target: {fileID: -1439730007547781893, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9890dc3e0425a1d4dac6be19e598bf97, type: 2}
     - target: {fileID: 919132149155446097, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
       propertyPath: m_Name
       value: VacuumCleaner(Enemy)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129496810705857465, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9890dc3e0425a1d4dac6be19e598bf97, type: 2}
+    - target: {fileID: 7071182760956848314, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071182760956848314, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4fdf9c9fe8dd3ad40a6f57cc9695a1d6, type: 2}
+    - target: {fileID: 7071182760956848314, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4fdf9c9fe8dd3ad40a6f57cc9695a1d6, type: 2}
+    - target: {fileID: 7202271454713460447, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9890dc3e0425a1d4dac6be19e598bf97, type: 2}
+    - target: {fileID: 8513859187771203891, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
