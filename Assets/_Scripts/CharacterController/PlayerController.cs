@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     // Gameplay variables
     private float moveSpeed;
+    private float jumpSpeed;
+    private float dashSpeed;
     private bool isDashing;
     private bool isGrounded;
 
@@ -19,13 +22,17 @@ public class PlayerController : MonoBehaviour
     public float gravityConstant = 9.81f;
     public float groundRaycastDistance = 0.2f;
     public float groundSphereCastRadius = 0.2f;
+    private Rigidbody rb;
 
-    private Rigidbody rigidbody;
+    private Coroutine dashCoroutine;
 
     private void Awake()
     {
         moveSpeed = gameConfig.bunnyMS;
-        rigidbody = GetComponent<Rigidbody>();
+        jumpSpeed = gameConfig.bunnyJumpSpeed;
+        dashSpeed = gameConfig.bunnyDashSpeed;
+
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -50,17 +57,24 @@ public class PlayerController : MonoBehaviour
         {
             verticalSpeed = 0f;
         }
-        
-        if (isDashing) return;
+        if (dashAction.IsPressed())
+        {
+            if (dashCoroutine != null)
+            {
+                StopCoroutine(dashCoroutine);
+            }
+            dashCoroutine = StartCoroutine(CR_Dash(0.05f));
+        }
+        //if (isDashing) return;
 
         if (jumpAction.IsPressed() && isGrounded)
         {
-            verticalSpeed = 20f;
+            verticalSpeed = 2f;
         }
 
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         Vector3 move3D = new Vector3(moveValue.x, verticalSpeed, moveValue.y);
-        rigidbody.linearVelocity = Vector3.Normalize(move3D) * moveSpeed;
+        rb.linearVelocity = move3D * moveSpeed;
     }
 
     private bool CheckGround()
@@ -76,8 +90,17 @@ public class PlayerController : MonoBehaviour
 
     private void EvalFallSpeed()
     {
+        Debug.Log($"Free Falling!! {verticalSpeed}");
         verticalSpeed -= gravityConstant * Time.deltaTime;
     }
 
+    private IEnumerator CR_Dash(float dashTime)
+    {
+        isDashing = true;
+        moveSpeed = dashSpeed;
+        yield return new WaitForSeconds(dashTime);
+        isDashing = false;
+        moveSpeed = gameConfig.bunnyMS;
+    }
 
 }

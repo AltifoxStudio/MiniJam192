@@ -6,13 +6,12 @@ public class GameConfig : ScriptableObject
     public int numberOfDustToGather = 15;
 
     [Header("Player Config")]
-    [Range(1f, 3f)]
     public float maxPlayerSize = 2f;
 
-    [Range(0.5f, 3f)]
     public float bunnyMS = 1f;
+    public float bunnyJumpSpeed = 3f;
+    public float bunnyDashSpeed = 3f;
 
-    [Range(0.5f, 3f)]
     public float minPlayerSize = 0.5f; // Relatif à la taille de référence
 
     [Header("Vacuum Config")]
