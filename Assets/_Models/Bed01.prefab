@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1685009525527395593}
   m_Layer: 0
-  m_Name: Wall_1m_2.3_0.1
+  m_Name: Bed01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,14 +24,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029306561968859059}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 1}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000035762784}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2369817466810716159}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &7936553112021720329
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2369817466810716159}
   - component: {fileID: 9043800080770373591}
   - component: {fileID: 78619963937511782}
-  - component: {fileID: 7329453764881649482}
+  - component: {fileID: 6839153231282135666}
   m_Layer: 0
   m_Name: Wall_1m*2.3*0.1
   m_TagString: Untagged
@@ -73,7 +73,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7936553112021720329}
-  m_Mesh: {fileID: 5023127364307662003, guid: 886e4c7df57d18047ba5aeb72d9e640d, type: 3}
+  m_Mesh: {fileID: -1883096718238062934, guid: 886e4c7df57d18047ba5aeb72d9e640d, type: 3}
 --- !u!23 &78619963937511782
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -97,7 +97,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc79d7a57e433e04c8285571b566abe0, type: 2}
+  - {fileID: 2100000, guid: 9890dc3e0425a1d4dac6be19e598bf97, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,8 +119,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7329453764881649482
-BoxCollider:
+--- !u!64 &6839153231282135666
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,6 +137,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.15000007, z: 2.2999997}
-  m_Center: {x: 0, y: 4.870439e-22, z: -1.1499999}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1883096718238062934, guid: 886e4c7df57d18047ba5aeb72d9e640d, type: 3}
