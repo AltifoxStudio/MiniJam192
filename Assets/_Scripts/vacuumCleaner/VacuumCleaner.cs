@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.AI; // ADDED: Required for NavMeshAgent
+using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))] // ADDED: Ensures this object always has a NavMeshAgent
+[RequireComponent(typeof(NavMeshAgent))] 
 public class VacuumCleaner : MonoBehaviour
 {
     [Tooltip("Reference to the game's configuration asset.")]
@@ -18,6 +18,7 @@ public class VacuumCleaner : MonoBehaviour
     private float angle;
     private float radius;
     private float moveSpeed;
+    public float suckRate = 1f;
 
     // ADDED: Pathfinding variables
     private NavMeshAgent agent;
@@ -30,12 +31,10 @@ public class VacuumCleaner : MonoBehaviour
         radius = gameConfig.vaccumRadius;
         moveSpeed = gameConfig.vacuumSpeed;
 
-        // ADDED: Get the NavMeshAgent component attached to this GameObject
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = moveSpeed; // Set the agent's speed from your config
+        agent.speed = moveSpeed;
     }
 
-    // ADDED: Use Start to find the player to ensure it exists in the scene
     private void Start()
     {
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -51,34 +50,30 @@ public class VacuumCleaner : MonoBehaviour
 
     private void Update()
     {
-        // ADDED: Tell the agent to follow the player's position
         FollowPlayer();
-        
+       
+    }
+
+    private void FixedUpdate() {
         SuckObjects();
     }
     
-    // ADDED: A new method to handle the following logic
-    /// <summary>
-    /// Sets the NavMeshAgent's destination to the player's current position.
-    /// </summary>
     private void FollowPlayer()
     {
-        // Only try to follow if we have a valid reference to the player
         if (playerTransform != null)
         {
             agent.SetDestination(playerTransform.position);
         }
     }
 
-    /// <summary>
-    /// Finds and applies a force to all suckable objects within the vacuum's cone.
-    /// </summary>
+
     private void SuckObjects()
     {
         List<Collider> objectsToSuck = FindSuckableObjects();
 
         foreach (Collider itemCollider in objectsToSuck)
         {
+            itemCollider.gameObject.GetComponent<hasDust>().GetDust(suckRate);
             Rigidbody rb = itemCollider.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -88,10 +83,6 @@ public class VacuumCleaner : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Finds all colliders on the 'suckableLayer' within a cone in front of the vacuum.
-    /// </summary>
-    /// <returns>A list of colliders found within the cone.</returns>
     private List<Collider> FindSuckableObjects()
     {
         Collider[] collidersInSphere = Physics.OverlapSphere(transform.position, radius, suckableLayer);
@@ -101,17 +92,18 @@ public class VacuumCleaner : MonoBehaviour
         foreach (Collider collider in collidersInSphere)
         {
             Vector3 directionToCollider = (collider.transform.position - transform.position).normalized;
-            if (Vector3.Dot(-transform.forward, directionToCollider) >= coneAngleCos)
+            if (Vector3.Dot(transform.forward, directionToCollider) >= coneAngleCos)
             {
                 objectsInCone.Add(collider);
             }
         }
+        foreach (var objects in objectsInCone)
+        {
+            Debug.Log(objects);
+        }
         return objectsInCone;
     }
 
-    /// <summary>
-    /// Draws a gizmo in the editor to visualize the vacuum's range and angle.
-    /// </summary>
     private void OnDrawGizmosSelected()
     {
         if (gameConfig != null && (angle == 0 || radius == 0))

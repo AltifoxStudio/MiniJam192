@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public GameObject lookAtTarget;
     public GameObject playerQuad;
 
+
     // Gameplay variables
     private float moveSpeed;
     private float jumpSpeed;
@@ -38,7 +39,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Renderer rend;
     private MaterialPropertyBlock bunnyTexture;
-    private float dustAmount = 100f;
     private float dustSpendMoving;
 
     private Coroutine dashCoroutine;
@@ -68,11 +68,6 @@ public class PlayerController : MonoBehaviour
         dashAction = InputSystem.actions.FindAction("Dash");
 
 
-    }
-
-    private void Update()
-    {
-        ApplyPlayerScale();
     }
 
     private void FixedUpdate()
@@ -124,22 +119,17 @@ public class PlayerController : MonoBehaviour
         Quaternion lookLeft = Quaternion.Euler(0f, 0f, 0f);
         Quaternion lookRight = Quaternion.Euler(0f, 180f, 0f);
 
-        if (moveValue.x > 0)
+        if (moveValue.x < 0)
         {
             playerQuad.transform.rotation = lookLeft;
         }
-        else if (moveValue.x < 0)
+        else if (moveValue.x > 0)
         {
             playerQuad.transform.rotation = lookRight;
         }
         transform.LookAt(lookAtTarget.transform);
     }
 
-    private void ApplyPlayerScale()
-    {
-        float ScaleFactor = dustAmount / 100;
-        playerQuad.transform.localScale = new Vector3(ScaleFactor, ScaleFactor, ScaleFactor);
-    }
 
     private bool CheckGround()
     {
@@ -164,12 +154,6 @@ public class PlayerController : MonoBehaviour
 
         return MoveDirection.Down;
     }
-
-    public void GiveDust(float Amout)
-    {
-        dustAmount += Amout;
-    }
-
 
     private void EvalFallSpeed()
     {

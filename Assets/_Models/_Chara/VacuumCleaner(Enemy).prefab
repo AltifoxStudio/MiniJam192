@@ -95,6 +95,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8491517981347286820}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8509040018913241291}
   m_SourcePrefab: {fileID: 100100000, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
 --- !u!1 &1646841719021387039 stripped
 GameObject:
@@ -118,3 +121,26 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   suckForce: 50
+  suckRate: 0.5
+--- !u!195 &8509040018913241291
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646841719021387039}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
