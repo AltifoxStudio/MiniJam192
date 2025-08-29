@@ -80,6 +80,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: fdd8780a4807c9e41bd892009a4068a8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Sprite_4:
+        m_Texture: {fileID: 2800000, guid: b726bb2be925f2b4fb9ab10105762da1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
