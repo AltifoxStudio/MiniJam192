@@ -20,8 +20,9 @@ MonoBehaviour:
   bunnyStartDustAmount: 50
   dustSpendMoving: 0
   minPlayerSize: 0.5
+  spawnChanceEachTick: 0.05
   vaccumAngle: 90
   vaccumRadius: 0.5
   vacuumSpeed: 1.2
-  vacuumMaxDust: 250
+  vacuumMaxDust: 75
   distanceToShowVacuum: 0.5

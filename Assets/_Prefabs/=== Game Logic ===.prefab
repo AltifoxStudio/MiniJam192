@@ -121,6 +121,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 89805958378434455}
+  - {fileID: 2455285537021358094}
   m_Father: {fileID: 2809089458960647647}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1506223556726406768
@@ -189,15 +190,18 @@ MonoBehaviour:
   gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
   lookAtTarget: {fileID: 7659133569250762991}
   playerQuad: {fileID: 2213098034218387278}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
   MoveSideTextures:
   - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
   MoveUpTextures:
   - {fileID: 2800000, guid: 7db7dd154c4a5804e831c253f899085c, type: 3}
   MoveDownTextures:
   - {fileID: 2800000, guid: a17524aaa794c1c4fbfbef8f83bf362d, type: 3}
-  gravityConstant: 9.81
-  groundRaycastDistance: 0.1
-  groundSphereCastRadius: 0.02
+  groundCheckPoint: {fileID: 2455285537021358094}
+  groundCheckDistance: 0.5
+  groundCheckRadius: 1
 --- !u!54 &5067734250599614406
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -220,7 +224,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
@@ -237,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8896a84e1173b0b45b07656422a98a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameConfig: {fileID: 0}
+  gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
   dustAmount: 0
   initDustAmount: 100
   minSize: 0.5
@@ -275,6 +279,37 @@ Transform:
   - {fileID: 3854392296028187139}
   - {fileID: 7880675172922470565}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2771741001506190686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2455285537021358094}
+  m_Layer: 3
+  m_Name: GroundCheckPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2455285537021358094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2771741001506190686}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7342509027759368552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3075208364862997149
 GameObject:
@@ -390,6 +425,7 @@ MonoBehaviour:
   gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
   totalDustBallsInLevel: 0
   collectedDustBalls: 0
+  remaininVacuums: 0
 --- !u!1 &6695369145413123740
 GameObject:
   m_ObjectHideFlags: 0

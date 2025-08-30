@@ -135,7 +135,7 @@ private void SuckObjects()
         UIGameManager.Instance.SetVacuumAmount(currentDustAmount);
         if (currentDustAmount > dustOverloadThreshold)
         {
-            GameManager.Instance.OnWinLevel(0);
+            Debug.Log("Destroying");
             Destroy(gameObject);
         }
         Rigidbody rb = itemCollider.GetComponent<Rigidbody>();

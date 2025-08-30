@@ -12,13 +12,15 @@ public class GameManager : MonoBehaviour
     public GameObject DustBallPrefab;
     public GameConfig gameConfig;
 
-    private Transform vacuumSpawnPoint;
+    private Transform[] vacuumSpawnPoints;
     private Transform[] dustBallsSpawnPoints;
 
     public int totalDustBallsInLevel;
     public int collectedDustBalls = 0;
+    public int remaininVacuums = 0;
 
     private Dictionary<Transform, GameObject> ActiveDustBalls = new Dictionary<Transform, GameObject>();
+    private Dictionary<Transform, GameObject> ActiveVacuums = new Dictionary<Transform, GameObject>();
 
     private void Awake()
     {
@@ -41,7 +43,9 @@ public class GameManager : MonoBehaviour
                                     .Select(dbSpawner => dbSpawner.transform)
                                     .ToArray();
         totalDustBallsInLevel = dustBallsSpawnPoints.Length;
-        vacuumSpawnPoint = FindFirstObjectByType<VacuumSpawner>().transform;
+        vacuumSpawnPoints = FindObjectsByType<VacuumSpawner>(FindObjectsSortMode.None)
+                            .Select(vSpawner => vSpawner.transform)
+                            .ToArray();
     }
 
     private void Start()
@@ -51,10 +55,29 @@ public class GameManager : MonoBehaviour
             GameObject dustGO = Instantiate(DustBallPrefab, dustSpawner.position, dustSpawner.rotation);
             ActiveDustBalls.Add(dustSpawner, dustGO);
         }
-        Instantiate(vaccumCleanerPrefab, vacuumSpawnPoint.position, vacuumSpawnPoint.rotation);
+        foreach (Transform vacuumSpawner in vacuumSpawnPoints)
+        {
+            GameObject vacuum = Instantiate(vaccumCleanerPrefab, vacuumSpawner.position, vacuumSpawner.rotation);
+            ActiveVacuums.Add(vacuumSpawner, vacuum);
+        }
+;
     }
 
-    private void FixedUpdate() {
+    private void Update()
+    {
+        // Count how many values in the dictionary are not null.
+        int remainingVacuums = ActiveVacuums.Values.Count(value => value != null);
+
+        if (remainingVacuums == 0)
+        {
+            OnWinLevel(0);
+            // It might be wise to disable this component after winning to stop the Update calls.
+            // this.enabled = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
         List<Transform> keys = ActiveDustBalls.Keys.ToList();
         foreach (Transform dustSpawner in keys)
         {
@@ -73,6 +96,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
     }
 
     public void ReloadCurrentScene()
