@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public GameConfig gameConfig;
     public GameObject lookAtTarget;
     public GameObject playerQuad;
+    public bool infiniteJump;
     public LayerMask groundLayer;
     
     // Gameplay variables
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private float jumpForce; // We now use jumpForce instead of jumpSpeed
     private float dashSpeed;
     private bool isGrounded;
+    private float dashCooldown;
 
     // Animation 
     [Header("Animation Textures")]
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
     // Components and private variables
     private Rigidbody rb;
     private Renderer rend;
+    private float lastDashTime;
     private MaterialPropertyBlock bunnyTexture;
     private float dustSpendMoving;
     private Coroutine dashCoroutine;
@@ -56,6 +59,8 @@ public class PlayerController : MonoBehaviour
         moveSpeed = gameConfig.bunnyMS;
         jumpForce = gameConfig.bunnyJumpSpeed; // Re-purposing this value for jump force
         dashSpeed = gameConfig.bunnyDashSpeed;
+        dashCooldown = gameConfig.dashCooldown;
+        lastDashTime = -dashCooldown;
         dustSpendMoving = gameConfig.dustSpendMoving;
     }
 
@@ -94,6 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         // We always check for the ground
         isGrounded = CheckGround();
+        Debug.Log(isGrounded);
         HandleMovement();
         HandleDash();
         HandleRotationAndAnimation();
@@ -124,14 +130,19 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDash()
     {
-        if (dashAction.IsPressed())
+        if (Time.time - lastDashTime > dashCooldown)
         {
-            if (dashCoroutine != null)
+            if (dashAction.IsPressed())
             {
-                StopCoroutine(dashCoroutine);
+                lastDashTime = Time.time;
+                if (dashCoroutine != null)
+                {
+                    StopCoroutine(dashCoroutine);
+                }
+                dashCoroutine = StartCoroutine(CR_Dash(0.05f));
             }
-            dashCoroutine = StartCoroutine(CR_Dash(0.05f));
         }
+
     }
     
     private void HandleRotationAndAnimation()
@@ -170,6 +181,10 @@ public class PlayerController : MonoBehaviour
 
     private bool CheckGround()
     {
+        if (infiniteJump)
+        {
+            return true;
+        }
         // CheckSphere returns true if any colliders are within the sphere
         isGrounded = Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);
         return isGrounded;

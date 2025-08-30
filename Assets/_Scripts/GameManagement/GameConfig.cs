@@ -7,6 +7,7 @@ public class GameConfig : ScriptableObject
 
     [Header("Player Config")]
     public float maxPlayerSize = 2f;
+    public float dashCooldown = 1f;
 
     public float bunnyMS = 1f;
     public float bunnyJumpSpeed = 3f;
