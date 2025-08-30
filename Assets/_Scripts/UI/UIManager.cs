@@ -47,7 +47,7 @@ public class UIGameManager : MonoBehaviour
 
     public void SetBunnyAmount(float Amount)
     {
-        bunnyHealthAmount.text = $"Bunny Dust Amount : {Amount}";
+        bunnyHealthAmount.text = $"Bunny Dust Amount : {(int)Amount}";
     }
 
     public void SetVacuumAmount(float Amount)

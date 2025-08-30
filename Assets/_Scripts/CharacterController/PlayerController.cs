@@ -122,6 +122,7 @@ public class PlayerController : MonoBehaviour
         rend.SetPropertyBlock(bunnyTexture);
         Vector3 move3D = new Vector3(moveValue.x, verticalSpeed, moveValue.y);
         rb.linearVelocity = move3D * moveSpeed;
+        GetComponent<HasDust>().GiveDust(Vector3.Magnitude(rb.linearVelocity) * dustSpendMoving);
 
         Quaternion lookLeft = Quaternion.Euler(0f, 0f, 0f);
         Quaternion lookRight = Quaternion.Euler(0f, 180f, 0f);
