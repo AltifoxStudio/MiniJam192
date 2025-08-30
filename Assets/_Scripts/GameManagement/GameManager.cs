@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject vaccumCleanerPrefab;
     public GameObject DustBallPrefab;
+    public GameConfig gameConfig;
 
     private Transform vacuumSpawnPoint;
     private Transform[] dustBallsSpawnPoints;
@@ -53,8 +54,25 @@ public class GameManager : MonoBehaviour
         Instantiate(vaccumCleanerPrefab, vacuumSpawnPoint.position, vacuumSpawnPoint.rotation);
     }
 
-    private void Update() {
-        //foreach 
+    private void FixedUpdate() {
+        List<Transform> keys = ActiveDustBalls.Keys.ToList();
+        foreach (Transform dustSpawner in keys)
+        {
+            // Check if the GameObject for this spawner has been destroyed (is null)
+            if (ActiveDustBalls[dustSpawner] == null)
+            {
+                // We use Random.value which returns a float between 0.0 and 1.0.
+                // Multiplying by Time.deltaTime makes the probability independent of the frame rate.
+                if (Random.value < gameConfig.spawnChanceEachTick * Time.deltaTime)
+                {
+                    // If the random check passes, instantiate a new dust ball
+                    GameObject newDustBall = Instantiate(DustBallPrefab, dustSpawner.position, dustSpawner.rotation);
+
+                    // Update the dictionary with the reference to the newly created GameObject
+                    ActiveDustBalls[dustSpawner] = newDustBall;
+                }
+            }
+        }
     }
 
     public void ReloadCurrentScene()

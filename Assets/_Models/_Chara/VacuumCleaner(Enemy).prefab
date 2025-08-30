@@ -126,7 +126,7 @@ MonoBehaviour:
     m_Bits: 8
   suckForce: 500
   dustFlowVFX: {fileID: -5403364860114768380, guid: e08c1713a274b5949ac3e2444d148705, type: 3}
-  suckRate: 1
+  suckRate: 3
   currentDustAmount: 0
 --- !u!195 &8509040018913241291
 NavMeshAgent:

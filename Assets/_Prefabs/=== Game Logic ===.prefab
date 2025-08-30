@@ -387,6 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vaccumCleanerPrefab: {fileID: 1646841719021387039, guid: 4c439616e5b6e7045be16d85d20f93b3, type: 3}
   DustBallPrefab: {fileID: 5323983640890531431, guid: 9c65071fc3ddfcc49881c9d4bb034bfa, type: 3}
+  gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
   totalDustBallsInLevel: 0
   collectedDustBalls: 0
 --- !u!1 &6695369145413123740

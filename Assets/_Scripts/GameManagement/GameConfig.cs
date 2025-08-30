@@ -12,10 +12,11 @@ public class GameConfig : ScriptableObject
     public float bunnyJumpSpeed = 3f;
     public float bunnyDashSpeed = 3f;
     public float bunnyStartDustAmount = 100f;
-
     public float dustSpendMoving = 0.1f;
-
     public float minPlayerSize = 0.5f; // Relatif à la taille de référence
+
+    [Header("Dust Ball Config")]
+    public float spawnChanceEachTick = 0.05f;
 
     [Header("Vacuum Config")]
     [Range(0f, 180f)]
