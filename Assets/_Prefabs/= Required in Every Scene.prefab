@@ -148,6 +148,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: === Game Logic ===
       objectReference: {fileID: 0}
+    - target: {fileID: 3584500413403406304, guid: 240f1b2abf8578349a165a293bea7a21, type: 3}
+      propertyPath: gameConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

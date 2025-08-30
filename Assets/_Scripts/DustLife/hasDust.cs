@@ -15,7 +15,10 @@ public class HasDust : MonoBehaviour
         dustAmount = initDustAmount;
         if (gameObject.tag == "Player")
         {
-            dustAmount = gameConfig.bunnyStartDustAmount;
+            if (gameConfig != null)
+            {
+                dustAmount = gameConfig.bunnyStartDustAmount;
+            }
         }
     }
 

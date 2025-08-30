@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public int totalDustBallsInLevel;
     public int collectedDustBalls = 0;
+
+    private Dictionary<Transform, GameObject> ActiveDustBalls = new Dictionary<Transform, GameObject>();
 
     private void Awake()
     {
@@ -44,9 +47,14 @@ public class GameManager : MonoBehaviour
     {
         foreach (Transform dustSpawner in dustBallsSpawnPoints)
         {
-            Instantiate(DustBallPrefab, dustSpawner.position, dustSpawner.rotation);
+            GameObject dustGO = Instantiate(DustBallPrefab, dustSpawner.position, dustSpawner.rotation);
+            ActiveDustBalls.Add(dustSpawner, dustGO);
         }
         Instantiate(vaccumCleanerPrefab, vacuumSpawnPoint.position, vacuumSpawnPoint.rotation);
+    }
+
+    private void Update() {
+        //foreach 
     }
 
     public void ReloadCurrentScene()

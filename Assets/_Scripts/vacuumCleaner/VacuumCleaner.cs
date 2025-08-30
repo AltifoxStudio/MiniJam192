@@ -169,10 +169,6 @@ private void SuckObjects()
                 objectsInCone.Add(collider);
             }
         }
-        foreach (var objects in objectsInCone)
-        {
-            Debug.Log(objects);
-        }
         return objectsInCone;
     }
 
