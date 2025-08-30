@@ -133,6 +133,11 @@ private void SuckObjects()
         itemCollider.gameObject.GetComponent<HasDust>().GiveDust(suckRate);
         currentDustAmount += suckRate;
         UIGameManager.Instance.SetVacuumAmount(currentDustAmount);
+        if (currentDustAmount > dustOverloadThreshold)
+        {
+            GameManager.Instance.OnWinLevel(0);
+            Destroy(gameObject);
+        }
         Rigidbody rb = itemCollider.GetComponent<Rigidbody>();
         if (rb != null)
         {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2426188159788814978}
   - component: {fileID: 8386758424623509551}
   - component: {fileID: 5840756684581563747}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 1577680961014998704}
   - component: {fileID: 5067734250599614406}
   - component: {fileID: 3584500413403406304}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerCollider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -237,6 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8896a84e1173b0b45b07656422a98a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameConfig: {fileID: 0}
+  dustAmount: 0
   initDustAmount: 100
   minSize: 0.5
   maxSize: 1.5
@@ -582,7 +584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 89805958378434455}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AnchorPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,7 +17,11 @@ MonoBehaviour:
   bunnyMS: 1.5
   bunnyJumpSpeed: 3
   bunnyDashSpeed: 5
+  bunnyStartDustAmount: 100
+  dustSpendMoving: 0.1
   minPlayerSize: 0.5
   vaccumAngle: 90
   vaccumRadius: 0.5
   vacuumSpeed: 1.2
+  vacuumMaxDust: 250
+  distanceToShowVacuum: 1

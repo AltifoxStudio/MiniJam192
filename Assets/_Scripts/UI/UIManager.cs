@@ -14,6 +14,7 @@ public class UIGameManager : MonoBehaviour
 
     public GameConfig gameConfig;
     public Canvas DeathScreen;
+    public Canvas WinScreen;
     public Canvas MainMenu;
     public Canvas InGameUI;
 
@@ -37,6 +38,11 @@ public class UIGameManager : MonoBehaviour
     public void OnDeath()
     {
         DeathScreen.gameObject.SetActive(true);
+    }
+
+    public void OnWinLevel(int LevelIndex)
+    {
+        WinScreen.gameObject.SetActive(true);
     }
 
     public void SetBunnyAmount(float Amount)

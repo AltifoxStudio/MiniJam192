@@ -144,21 +144,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2213098034218387278, guid: 240f1b2abf8578349a165a293bea7a21, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2282842104749334714, guid: 240f1b2abf8578349a165a293bea7a21, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2295275976634660918, guid: 240f1b2abf8578349a165a293bea7a21, type: 3}
       propertyPath: m_Name
       value: === Game Logic ===
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256362535400105836, guid: 240f1b2abf8578349a165a293bea7a21, type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

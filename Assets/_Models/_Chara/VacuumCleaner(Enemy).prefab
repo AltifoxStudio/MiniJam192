@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VacuumCleaner(Enemy)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1129496810705857465, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -123,6 +127,7 @@ MonoBehaviour:
   suckForce: 500
   dustFlowVFX: {fileID: -5403364860114768380, guid: e08c1713a274b5949ac3e2444d148705, type: 3}
   suckRate: 1
+  currentDustAmount: 0
 --- !u!195 &8509040018913241291
 NavMeshAgent:
   m_ObjectHideFlags: 0

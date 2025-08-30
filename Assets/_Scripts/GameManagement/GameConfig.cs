@@ -25,4 +25,7 @@ public class GameConfig : ScriptableObject
     [Range(0.5f, 3f)]
     public float vacuumSpeed = 1.2f;
     public float vacuumMaxDust = 250f;
+
+    [Header("Camera Config")]
+    public float distanceToShowVacuum = 10;
 }

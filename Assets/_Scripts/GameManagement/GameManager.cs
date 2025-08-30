@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour
         UIGameManager.Instance.OnDeath();
     }
 
+    public void OnWinLevel(int LevelIndex)
+    {
+        UIGameManager.Instance.OnWinLevel(LevelIndex);
+    }
+
     // You can add public methods here to be called from other scripts
     public void OnDustBallCollected()
     {

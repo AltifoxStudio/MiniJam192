@@ -6,7 +6,8 @@ public enum MoveDirection
 {
     Up,
     Down,
-    Side
+    Side,
+    Idle,
 }
 
 public class PlayerController : MonoBehaviour
@@ -70,6 +71,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void Update() {
+        
+    }
+
     private void FixedUpdate()
     {
         isGrounded = CheckGround();
@@ -109,6 +114,8 @@ public class PlayerController : MonoBehaviour
             case MoveDirection.Side:
                 bunnyTexture.SetTexture("_playerSprite", MoveSideTextures[0]);
                 break;
+            case MoveDirection.Idle:
+                break;
             default:
                 break;
         }
@@ -130,7 +137,6 @@ public class PlayerController : MonoBehaviour
         transform.LookAt(lookAtTarget.transform);
     }
 
-
     private bool CheckGround()
     {
         Vector3 start = transform.position;
@@ -143,14 +149,18 @@ public class PlayerController : MonoBehaviour
 
     private MoveDirection evalMoveDirection(Vector2 directions)
     {
+        if (Mathf.Pow(directions.x,2f) + Mathf.Pow(directions.y,2f) <= 1e-2)
+        {
+            return MoveDirection.Idle;
+        }
         if (Mathf.Abs(directions.x) > Mathf.Abs(directions.y))
-        {
-            return MoveDirection.Side;
-        }
-        else if (directions.y > 0)
-        {
-            return MoveDirection.Up;
-        }
+            {
+                return MoveDirection.Side;
+            }
+            else if (directions.y > 0)
+            {
+                return MoveDirection.Up;
+            }
 
         return MoveDirection.Down;
     }
