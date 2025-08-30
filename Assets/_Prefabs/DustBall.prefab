@@ -178,7 +178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8e75857d0ea6941b464eea1aed6019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dustAmount: 20
 --- !u!54 &3282494353364439244
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -218,6 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8896a84e1173b0b45b07656422a98a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
+  dustAmount: 0
   initDustAmount: 20
   minSize: 0.05
   maxSize: 0.2
