@@ -34,6 +34,10 @@ public class HasDust : MonoBehaviour
         dustAmount -= amount;
         if (dustAmount < 0)
         {
+            if (gameObject.tag == "Player")
+            {
+                gameObject.GetComponent<PlayerController>().killPlayer();
+            }
             Destroy(gameObject);
         }
     }

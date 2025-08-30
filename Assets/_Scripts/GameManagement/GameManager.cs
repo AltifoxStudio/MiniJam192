@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,6 +47,20 @@ public class GameManager : MonoBehaviour
             Instantiate(DustBallPrefab, dustSpawner.position, dustSpawner.rotation);
         }
         Instantiate(vaccumCleanerPrefab, vacuumSpawnPoint.position, vacuumSpawnPoint.rotation);
+    }
+
+    public void ReloadCurrentScene()
+    {
+        // Get the index of the currently active scene.
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Reload the scene using its index.
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void OnDeath()
+    {
+        UIGameManager.Instance.OnDeath();
     }
 
     // You can add public methods here to be called from other scripts

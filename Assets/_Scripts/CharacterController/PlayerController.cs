@@ -160,6 +160,11 @@ public class PlayerController : MonoBehaviour
         verticalSpeed -= gravityConstant * Time.deltaTime;
     }
 
+    public void killPlayer()
+    {
+        GameManager.Instance.OnDeath();
+    }
+
     private IEnumerator CR_Dash(float dashTime)
     {
         moveSpeed = dashSpeed;
