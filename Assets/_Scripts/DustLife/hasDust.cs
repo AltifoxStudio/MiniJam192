@@ -1,18 +1,22 @@
 using UnityEngine;
 
-public class hasDust : MonoBehaviour
+public class HasDust : MonoBehaviour
 {
-    private float dustAmount = 100f;
+    public float dustAmount;
     public float initDustAmount = 100f;
     public float minSize = 0.5f;
     public float maxSize = 3f;
     private float scaleFactor = 1f;
     public GameObject RenderQuad;
 
+    private void Start() {
+        dustAmount = initDustAmount;
+    }
+
     private void ApplyScale()
     {
         scaleFactor = dustAmount / initDustAmount;
-        float scale = Mathf.Lerp(maxSize, minSize, scaleFactor);
+        float scale = Mathf.Lerp(minSize, maxSize, scaleFactor);
         RenderQuad.transform.localScale = new Vector3(scale, scale, scale);
     }
 
@@ -28,6 +32,10 @@ public class hasDust : MonoBehaviour
     public void GiveDust(float amount)
     {
         dustAmount -= amount;
+        if (dustAmount < 0)
+        {
+            Destroy(gameObject);
+        }
     }
    
 }

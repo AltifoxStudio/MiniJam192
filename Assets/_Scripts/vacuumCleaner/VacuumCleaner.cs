@@ -14,6 +14,8 @@ public class VacuumCleaner : MonoBehaviour
     [Tooltip("The force applied to pull objects towards the vacuum.")]
     public float suckForce = 50f;
 
+    public ParticleFlowController dustFlowVFX;
+
     // Parameters from GameConfig
     private float angle;
     private float radius;
@@ -24,7 +26,9 @@ public class VacuumCleaner : MonoBehaviour
     private NavMeshAgent agent;
     private Transform playerTransform;
 
-    private void Awake() 
+    private Dictionary<Collider, ParticleFlowController> suckedObjectsVFX = new Dictionary<Collider, ParticleFlowController>();
+
+    private void Awake()
     {
         // Load parameters from the ScriptableObject
         angle = gameConfig.vaccumAngle;
@@ -67,21 +71,78 @@ public class VacuumCleaner : MonoBehaviour
     }
 
 
-    private void SuckObjects()
-    {
-        List<Collider> objectsToSuck = FindSuckableObjects();
+private void SuckObjects()
+{
+    // Find all objects currently in range
+    List<Collider> detectedColliders = FindSuckableObjects();
+    // Using a HashSet provides much faster lookups than a List for checking existence.
+    HashSet<Collider> detectedSet = new HashSet<Collider>(detectedColliders);
 
-        foreach (Collider itemCollider in objectsToSuck)
+    // --- 1. REMOVAL: Find objects that are no longer in range ---
+    List<Collider> collidersToRemove = new List<Collider>();
+    foreach (Collider trackedCollider in suckedObjectsVFX.Keys)
+    {
+        // If a tracked object is no longer in the detected set, mark it for removal.
+        if (!detectedSet.Contains(trackedCollider))
         {
-            itemCollider.gameObject.GetComponent<hasDust>().GetDust(suckRate);
-            Rigidbody rb = itemCollider.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                Vector3 direction = (transform.position - itemCollider.transform.position).normalized;
-                rb.AddForce(direction * suckForce * Time.deltaTime);
-            }
+            collidersToRemove.Add(trackedCollider);
         }
     }
+
+    // Now, safely remove the marked objects and destroy their VFX
+    foreach (Collider colliderToRemove in collidersToRemove)
+    {
+        if (suckedObjectsVFX.TryGetValue(colliderToRemove, out ParticleFlowController vfx))
+        {
+            if (vfx != null) // Always check if the VFX still exists
+            {
+               Destroy(vfx.gameObject);
+            }
+            suckedObjectsVFX.Remove(colliderToRemove);
+        }
+    }
+
+    // --- 2. ADDITION: Find newly detected objects ---
+    foreach (Collider detectedCollider in detectedColliders)
+    {
+        // If a detected object is not already being tracked, start tracking it.
+        if (!suckedObjectsVFX.ContainsKey(detectedCollider))
+        {
+            // Instantiate a new VFX for this object
+            ParticleFlowController newVFX = Instantiate(dustFlowVFX, transform.position, Quaternion.identity);
+            
+            // Add the new object and its VFX to the dictionary
+            suckedObjectsVFX.Add(detectedCollider, newVFX);
+        }
+    }
+
+    // --- 3. UPDATE: Apply logic to all currently tracked objects ---
+    foreach (var pair in suckedObjectsVFX)
+    {
+        Collider itemCollider = pair.Key;
+        ParticleFlowController vfx = pair.Value;
+
+        // Skip if the object was somehow destroyed by another script
+        if (itemCollider == null) continue; 
+
+        // Apply your suction force logic
+        itemCollider.gameObject.GetComponent<HasDust>().GiveDust(suckRate);
+        Rigidbody rb = itemCollider.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 direction = (transform.position - itemCollider.transform.position).normalized;
+            rb.AddForce(direction * suckForce * Time.deltaTime);
+        }
+        
+        // Update the VFX to flow from the object to the vacuum
+        // You'll need a method on your 'ParticleFlowController' to handle this.
+        if(vfx != null)
+        {
+            // Example: Assumes your VFX script has a method to set its target
+            vfx.SetTargets(itemCollider.transform, transform); 
+        }
+    }
+}
 
     private List<Collider> FindSuckableObjects()
     {
@@ -104,6 +165,20 @@ public class VacuumCleaner : MonoBehaviour
         return objectsInCone;
     }
 
+    private void OnDestroy()
+    {
+        // Destroy all active VFX when the vacuum itself is destroyed
+        foreach (var vfx in suckedObjectsVFX.Values)
+        {
+            if (vfx != null)
+            {
+                Destroy(vfx.gameObject);
+            }
+        }
+        // Clear the dictionary to be tidy
+        suckedObjectsVFX.Clear();
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (gameConfig != null && (angle == 0 || radius == 0))
@@ -118,7 +193,7 @@ public class VacuumCleaner : MonoBehaviour
 
         Quaternion leftRayRotation = Quaternion.AngleAxis(-angle / 2f, transform.up);
         Quaternion rightRayRotation = Quaternion.AngleAxis(angle / 2f, transform.up);
-        
+
         Vector3 leftRayDirection = leftRayRotation * forward;
         Vector3 rightRayDirection = rightRayRotation * forward;
 
