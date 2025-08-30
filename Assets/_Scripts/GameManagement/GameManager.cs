@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
                                     .Select(dbSpawner => dbSpawner.transform)
                                     .ToArray();
         totalDustBallsInLevel = dustBallsSpawnPoints.Length;
+        vacuumSpawnPoint = FindFirstObjectByType<VacuumSpawner>().transform;
     }
 
     private void Start()
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(DustBallPrefab, dustSpawner.position, dustSpawner.rotation);
         }
+        Instantiate(vaccumCleanerPrefab, vacuumSpawnPoint.position, vacuumSpawnPoint.rotation);
     }
 
     // You can add public methods here to be called from other scripts

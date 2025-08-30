@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2213098034218387278}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9794118, z: -0.20187286, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 89805958378434455}
-  m_LocalEulerAnglesHint: {x: 23.293, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8386758424623509551
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2213098034218387278}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -7809416724079960961, guid: dc6339eec0ff0c647880ce7afbc84ea5, type: 3}
 --- !u!23 &5840756684581563747
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 1802095452154189619}
   - component: {fileID: 1577680961014998704}
   - component: {fileID: 5067734250599614406}
+  - component: {fileID: 3584500413403406304}
   m_Layer: 0
   m_Name: PlayerCollider
   m_TagString: Player
@@ -142,7 +143,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &1802095452154189619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +225,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3584500413403406304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282842104749334714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8896a84e1173b0b45b07656422a98a06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initDustAmount: 100
+  minSize: 0.5
+  maxSize: 1.5
+  RenderQuad: {fileID: 2213098034218387278}
 --- !u!1 &2295275976634660918
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vaccumCleanerPrefab: {fileID: 1646841719021387039, guid: 4c439616e5b6e7045be16d85d20f93b3, type: 3}
   DustBallPrefab: {fileID: 5323983640890531431, guid: 9c65071fc3ddfcc49881c9d4bb034bfa, type: 3}
+  totalDustBallsInLevel: 0
+  collectedDustBalls: 0
 --- !u!1 &6695369145413123740
 GameObject:
   m_ObjectHideFlags: 0
