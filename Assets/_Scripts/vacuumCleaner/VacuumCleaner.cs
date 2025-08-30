@@ -22,6 +22,9 @@ public class VacuumCleaner : MonoBehaviour
     private float moveSpeed;
     public float suckRate = 1f;
 
+    public float currentDustAmount = 0f;
+    private float dustOverloadThreshold;
+
     // ADDED: Pathfinding variables
     private NavMeshAgent agent;
     private Transform playerTransform;
@@ -34,6 +37,7 @@ public class VacuumCleaner : MonoBehaviour
         angle = gameConfig.vaccumAngle;
         radius = gameConfig.vaccumRadius;
         moveSpeed = gameConfig.vacuumSpeed;
+        dustOverloadThreshold = gameConfig.vacuumMaxDust;
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
@@ -127,6 +131,8 @@ private void SuckObjects()
 
         // Apply your suction force logic
         itemCollider.gameObject.GetComponent<HasDust>().GiveDust(suckRate);
+        currentDustAmount += suckRate;
+        UIGameManager.Instance.SetVacuumAmount(currentDustAmount);
         Rigidbody rb = itemCollider.GetComponent<Rigidbody>();
         if (rb != null)
         {
