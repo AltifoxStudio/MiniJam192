@@ -19,9 +19,10 @@ MonoBehaviour:
   bunnyJumpSpeed: 3
   bunnyDashSpeed: 5
   bunnyStartDustAmount: 50
+  bunnyMaxDustAmount: 200
   dustSpendMoving: 0
   minPlayerSize: 0.5
-  spawnChanceEachTick: 0.05
+  spawnChanceEachTick: 0.001
   vaccumAngle: 90
   vaccumRadius: 0.5
   vacuumSpeed: 1.2

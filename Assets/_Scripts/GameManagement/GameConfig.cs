@@ -13,6 +13,7 @@ public class GameConfig : ScriptableObject
     public float bunnyJumpSpeed = 3f;
     public float bunnyDashSpeed = 3f;
     public float bunnyStartDustAmount = 100f;
+    public float bunnyMaxDustAmount = 200f;
     public float dustSpendMoving = 0.1f;
     public float minPlayerSize = 0.5f; // Relatif à la taille de référence
 

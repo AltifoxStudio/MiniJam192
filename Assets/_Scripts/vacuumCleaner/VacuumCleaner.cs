@@ -226,9 +226,10 @@ public class VacuumCleaner : MonoBehaviour
         }
         // Clear the dictionary to be tidy
         suckedObjectsVFX.Clear();
+        SFXManager.Instance.deathOfAVacuum.PreloadAndPlay();
         try
         {
-             AltifoxAudioManager.Instance.ReleaseAltifoxAudioSource(SoundPlayer.audioSource);
+            AltifoxAudioManager.Instance.ReleaseAltifoxAudioSource(SoundPlayer.audioSource);
         }
         catch (System.Exception)
         {

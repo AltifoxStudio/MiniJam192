@@ -33,14 +33,22 @@ public class HasDust : MonoBehaviour
         ApplyScale();
     }
 
-    public void GetDust(float amount)
+    public bool GetDust(float amount)
     {
         dustAmount += amount;
         if (gameObject.tag == "Player")
         {
+            if (dustAmount > gameConfig.bunnyMaxDustAmount)
+            {
+                UIGameManager.Instance.SetBunnyAmount(gameConfig.bunnyMaxDustAmount);
+                dustAmount = gameConfig.bunnyMaxDustAmount;
+                return false;
+            }
             UIGameManager.Instance.SetBunnyAmount(dustAmount);
             SFXManager.Instance.collectDustSFX.PreloadAndPlay();
+            return true;
         }
+        return true;
     }
 
     public void GiveDust(float amount)

@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 
 
 public class UIGameManager : MonoBehaviour
@@ -10,6 +10,7 @@ public class UIGameManager : MonoBehaviour
     public GameConfig gameConfig;
     public GameObject DeathScreen;
     public GameObject WinScreen;
+    public Image bunnyDustAmountImage;
     public GameObject InGameUI;
 
     [Header("In Game UI Elements")]
@@ -77,8 +78,9 @@ public class UIGameManager : MonoBehaviour
 
     public void SetBunnyAmount(float Amount)
     {
-        float percentage = (Amount * 100f) / gameConfig.bunnyStartDustAmount;
+        float percentage = (Amount * 100f) / gameConfig.bunnyMaxDustAmount;
         percentage = Mathf.Clamp(percentage, 0, gameConfig.maxPlayerSize * 100);
+        bunnyDustAmountImage.fillAmount = percentage / 100f;
         bunnyHealthAmount.text = $"Dusty size : {(int)percentage} %";
     }
 

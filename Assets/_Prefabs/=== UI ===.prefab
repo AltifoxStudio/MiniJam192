@@ -538,6 +538,7 @@ MonoBehaviour:
   gameConfig: {fileID: 11400000, guid: 2f391853241e7b84a84a3b5ff49deb86, type: 2}
   DeathScreen: {fileID: 6920030748059158248}
   WinScreen: {fileID: 8322344021968847783}
+  bunnyDustAmountImage: {fileID: 6397814236812933825}
   InGameUI: {fileID: 6133695902903052998}
   bunnyHealthAmount: {fileID: 7587397303835877374}
 --- !u!114 &3598719725009208986
@@ -656,7 +657,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.725
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1157,7 +1158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3145785534553985327
 RectTransform:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class SFXManager : MonoBehaviour
     public AltifoxOneShotPlayer jumpSFX;
     public AltifoxOneShotPlayer collectDustSFX;
 
+    public AltifoxOneShotPlayer deathOfAVacuum;
+
     private void Awake()
     {
         // This is the core singleton logic.

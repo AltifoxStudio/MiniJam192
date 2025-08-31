@@ -540,6 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpSFX: {fileID: 4319390981871081660}
   collectDustSFX: {fileID: 4785248162353928540}
+  deathOfAVacuum: {fileID: 4800592889987101588}
 --- !u!1 &4684205327313188224
 GameObject:
   m_ObjectHideFlags: 0

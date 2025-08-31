@@ -12,22 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e242a6993a9cf428ca36f0c37870d8bb, type: 3}
   m_Name: VacuumOverload
   m_EditorClassIdentifier: 
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: d74a0fdbcb784ae47b7ec0f79e22ba9e, type: 3}
   volume:
-    defaultValue: 0
+    defaultValue: 1
     minDeviation: 0
     maxDeviation: 0
-    enableRandomness: 0
+    enableRandomness: 1
   pitch:
     defaultValue: 0
     minDeviation: 0
     maxDeviation: 0
     enableRandomness: 0
-  targetMixer: {fileID: 0}
+  targetMixer: {fileID: 8531833147499165617, guid: 3160581406d5938419add16f2b504f82, type: 2}
   playbackType: 0
   cooldown: 0
   spatialize: 1
-  maxInstances: 2147483647
-  spatialBlend: 1
+  maxInstances: 2
+  spatialBlend: 0
   minDistanceSpatialize: 5
   maxDistanceSpatialize: 500
