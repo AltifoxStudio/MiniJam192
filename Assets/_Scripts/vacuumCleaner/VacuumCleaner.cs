@@ -72,7 +72,10 @@ public class VacuumCleaner : MonoBehaviour
             try
             {
                 SoundPlayer.Play();
-                soundIsPlaying = true;
+                if (SoundPlayer.audioSource.isPlaying)
+                {
+                    soundIsPlaying = true;  
+                }
             }
             catch (System.Exception)
             {
@@ -219,7 +222,15 @@ public class VacuumCleaner : MonoBehaviour
         }
         // Clear the dictionary to be tidy
         suckedObjectsVFX.Clear();
-        AltifoxAudioManager.Instance.ReleaseAltifoxAudioSource(SoundPlayer.audioSource);
+        try
+        {
+             AltifoxAudioManager.Instance.ReleaseAltifoxAudioSource(SoundPlayer.audioSource);
+        }
+        catch (System.Exception)
+        {
+            // pass
+        }
+       
     }
 
     // MODIFIED: The entire Gizmo drawing function is updated for 3D preview.

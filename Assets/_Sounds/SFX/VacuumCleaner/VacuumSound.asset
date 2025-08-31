@@ -21,8 +21,8 @@ MonoBehaviour:
     enableRandomness: 0
   pitch:
     defaultValue: 1
-    minDeviation: 0.05
-    maxDeviation: 0.05
+    minDeviation: 0.1
+    maxDeviation: 0.1
     enableRandomness: 1
   targetMixer: {fileID: 0}
   playbackType: 0

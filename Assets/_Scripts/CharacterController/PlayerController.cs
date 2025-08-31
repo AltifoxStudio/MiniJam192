@@ -68,6 +68,12 @@ public class PlayerController : MonoBehaviour
 
     private LookDirection lookDirection;
 
+    [Header("Wall Stick Fix")]
+    public float wallCheckOffset = 0.1f;
+    public float wallCheckRadius = 0.4f;
+    public float wallCheckDistance = 0.2f;
+    public LayerMask wallLayer;
+
     private void Awake()
     {
         // Get Rigidbody component
@@ -130,8 +136,38 @@ public class PlayerController : MonoBehaviour
         // Read input value
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
 
-        // Calculate horizontal movement, preserving the Rigidbody's current vertical velocity
-        Vector3 horizontalMove = new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed;
+        // Create a normalized direction vector for the cast
+        Vector3 moveDirection = new Vector3(moveValue.x, 0, 0).normalized;
+        
+        // This will be our potentially modified horizontal input
+        float finalMoveX = moveValue.x;
+
+        // We only perform the check if the player is actually trying to move horizontally
+        if (moveDirection.sqrMagnitude > 0)
+        {
+            // --- START: Updated Logic ---
+            
+            // Calculate the starting point of the spherecast using the offset
+            Vector3 origin = transform.position + moveDirection * wallCheckOffset;
+
+            // Visualize the cast in the Scene view for easy debugging
+            //Debug.DrawRay(origin, moveDirection * wallCheckDistance, Color.red);
+
+            // Perform the SphereCast
+            bool isWallInFront = Physics.SphereCast(origin, wallCheckRadius, moveDirection, out RaycastHit hit, wallCheckDistance, wallLayer);
+
+            // --- END: Updated Logic ---
+
+            // If we are in the air AND there is a wall right in front of us...
+            if (isWallInFront)
+            {
+                // ...then we cancel the horizontal movement into the wall.
+                finalMoveX = 0f;
+            }
+        }
+        
+        // Calculate horizontal movement using the new 'finalMoveX' which might be zero
+        Vector3 horizontalMove = new Vector3(finalMoveX, 0, moveValue.y) * moveSpeed;
         rb.linearVelocity = new Vector3(horizontalMove.x, rb.linearVelocity.y, horizontalMove.z);
 
         // Handle dust emission
