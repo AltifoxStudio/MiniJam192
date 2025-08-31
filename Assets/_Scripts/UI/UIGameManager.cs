@@ -1,22 +1,17 @@
 using UnityEngine;
 using TMPro;
 
-enum UIManager
-{
-    Death,
-    MainMenu,
-    Pause
-}
+
 
 public class UIGameManager : MonoBehaviour
 {
     public static UIGameManager Instance { get; private set; }
 
     public GameConfig gameConfig;
-    public Canvas DeathScreen;
-    public Canvas WinScreen;
-    public Canvas MainMenu;
-    public Canvas InGameUI;
+    public GameObject DeathScreen;
+    public GameObject WinScreen;
+    public GameObject MainMenu;
+    public GameObject InGameUI;
 
     [Header("In Game UI Elements")]
     public TMP_Text bunnyHealthAmount;
@@ -36,7 +31,7 @@ public class UIGameManager : MonoBehaviour
 
     public void OnDeath()
     {
-        DeathScreen.gameObject.SetActive(true);
+        //
     }
 
     public void ResetUI()
@@ -45,9 +40,51 @@ public class UIGameManager : MonoBehaviour
         DeathScreen.gameObject.SetActive(false);
     }
 
+    private void Update() {
+        Debug.Log(GameManager.Instance.gameState);
+        switch (GameManager.Instance.gameState)
+        {
+            case GameState.MainMenu:
+                MainMenu.SetActive(true);
+                WinScreen.SetActive(false);
+                DeathScreen.gameObject.SetActive(false);
+                InGameUI.gameObject.SetActive(false);
+                break;
+
+            case GameState.Play:
+                MainMenu.SetActive(false);
+                WinScreen.SetActive(false);
+                DeathScreen.gameObject.SetActive(false);
+                InGameUI.gameObject.SetActive(true);
+                break;
+
+            case GameState.win:
+                MainMenu.SetActive(false);
+                WinScreen.SetActive(true);
+                DeathScreen.SetActive(false);
+                InGameUI.SetActive(false);
+                break;
+
+            case GameState.Death:
+                MainMenu.SetActive(false);
+                WinScreen.SetActive(false);
+                DeathScreen.SetActive(true);
+                InGameUI.SetActive(false);
+                break;
+
+            default:
+                break;
+        }
+    }
+
     public void OnWinLevel(int LevelIndex)
     {
-        WinScreen.gameObject.SetActive(true);
+       //
+    }
+
+    public void OnStartLevel()
+    {
+        GameManager.Instance.gameState = GameState.Play;
     }
 
     public void SetBunnyAmount(float Amount)

@@ -4,6 +4,15 @@ using UnityEngine.SceneManagement;
 using AltifoxStudio.AltifoxAudioManager;
 using System.Collections.Generic;
 
+public enum GameState
+{
+    Death,
+    win,
+    MainMenu,
+    Pause,
+    Play,
+}
+
 public class GameManager : MonoBehaviour
 {
     // --- Singleton Instance ---
@@ -14,13 +23,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject vacuumCleanerPrefab;
     [SerializeField] private GameObject dustBallPrefab;
     [SerializeField] private GameObject playerPrefab;
-    
+
     [Header("Configuration")]
     [SerializeField] private GameConfig gameConfig;
 
     // --- Level State ---
     public int TotalDustBallsInLevel { get; private set; }
     public int CollectedDustBalls { get; private set; } = 0;
+
+    public GameState gameState = GameState.MainMenu;
 
     private Dictionary<Transform, GameObject> _activeDustBalls = new Dictionary<Transform, GameObject>();
     private Dictionary<Transform, GameObject> _activeVacuums = new Dictionary<Transform, GameObject>();
@@ -41,6 +52,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // Initialize the level once the scene is fully loaded and all Awakes are done.
+        InitLevel();
+    }
+
+    private void StartGame()
+    {
         InitLevel();
     }
 
@@ -71,25 +87,33 @@ public class GameManager : MonoBehaviour
         Instantiate(playerPrefab, playerSpawner.position, playerSpawner.rotation);
 
         Debug.Log("Level Initialized.");
+        Debug.Log(_activeVacuums);
     }
 
     private void Update()
     {
-        // Check for win condition: all vacuums are destroyed.
-        int remainingVacuums = _activeVacuums.Values.Count(v => v != null);
-        if (remainingVacuums == 0)
+        if (gameState == GameState.Play)
         {
-            OnWinLevel(SceneManager.GetActiveScene().buildIndex);
-            this.enabled = false; // Disable component to stop further checks.
+            // Check for win condition: all vacuums are destroyed.
+                int remainingVacuums = _activeVacuums.Values.Count(v => v != null);
+            if (remainingVacuums == 0)
+            {
+                OnWinLevel(SceneManager.GetActiveScene().buildIndex);
+                this.enabled = false; // Disable component to stop further checks.
+            }
         }
+
     }
 
     private void FixedUpdate()
     {
-        // Check if any dust balls need to be respawned.
-        RespawnDustBalls();
+        if (gameState == GameState.Play)
+        {
+            // Check if any dust balls need to be respawned.
+            RespawnDustBalls();
+        }
     }
-    
+
     private void RespawnDustBalls()
     {
         // Using ToList() creates a copy, preventing modification errors during iteration.
@@ -124,7 +148,7 @@ public class GameManager : MonoBehaviour
 
     public void OnDeath()
     {
-        UIGameManager.Instance.OnDeath();
+        gameState = GameState.Death;
         foreach (Transform spawner in _activeVacuums.Keys.ToList())
         {
             if (_activeVacuums[spawner] != null) // Check if the dust ball was destroyed
@@ -136,6 +160,7 @@ public class GameManager : MonoBehaviour
 
     public void OnWinLevel(int levelIndex)
     {
+        gameState = GameState.win;
         UIGameManager.Instance.OnWinLevel(levelIndex);
         foreach (Transform spawner in _activeVacuums.Keys.ToList())
         {
