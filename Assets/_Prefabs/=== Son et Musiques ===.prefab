@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8705092388204139403}
   - component: {fileID: 20341719269827935}
   m_Layer: 0
-  m_Name: Hover
+  m_Name: lowPrio_Hover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   playlist: {fileID: 11400000, guid: 702a862b89c283945af45476f4462cb9, type: 2}
   altifoxMusicSO: {fileID: 0}
   currentPlayingTrack: 
-  playOnAwake: 1
+  playOnAwake: 0
   useDoubleBuffering: 1
   looping: 0
   exitLoopFlag: 0
@@ -159,6 +159,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7996420550942146698}
+  - component: {fileID: 7653837843090176444}
+  - component: {fileID: 687171095324427663}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -181,6 +183,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6135677354220986920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7653837843090176444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514695877242502971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8752345c2ec32854785763344e3a02dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _numberOfSingleBufferSourcesToPool: 20
+  _numberOfDoubleBufferSourcesToPool: 20
+  _singleBufferAudioSourcesNamePrefix: AltifoxAS__SB_
+  _doubleBufferAudioSourcesNamePrefix: AltifoxAS__DB_
+--- !u!114 &687171095324427663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514695877242502971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11302c10f709c34db75b486311161eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inGameMusic: {fileID: 3396208794349111686}
+  menuMusicName: InGameMusic
+  inGameMusicName: MenuMusic
+  first: 1
 --- !u!1 &1558930603466876746
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DustedMusic
   m_EditorClassIdentifier: 
   Items:
-  - name: MainMenu
-    altifoxMusic: {fileID: 11400000, guid: 374c73f22ffd9944bb281f7946ace8d9, type: 2}
-  - name: Gameplay
+  - name: InGameMusic
     altifoxMusic: {fileID: 11400000, guid: aafef11602dcf384c949a6a052f5f0ec, type: 2}
-  defaultMusic: MainMenu
+  - name: MenuMusic
+    altifoxMusic: {fileID: 11400000, guid: 374c73f22ffd9944bb281f7946ace8d9, type: 2}
+  defaultMusic: InGameMusic

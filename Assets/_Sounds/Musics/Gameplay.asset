@@ -12,9 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bec22054d7349e7859f32664494938, type: 3}
   m_Name: Gameplay
   m_EditorClassIdentifier: 
-  musicLayers: []
-  trackBeatPerMinute: 120
-  beatsPerMeasure: 4
+  musicLayers:
+  - name: Background
+    audioClip: {fileID: 8300000, guid: eb4bc8ce73497b14faf37229f0963524, type: 3}
+    activeVolume: 1
+    activeByDefault: 1
+    deactivateOnLoop: 0
+    spatialize: 0
+    spatialBlend: 0
+    targetMixer: {fileID: -1726096958699811531, guid: 3160581406d5938419add16f2b504f82, type: 2}
+  - name: Melody 1
+    audioClip: {fileID: 8300000, guid: 9801dff0215f63440bf214f3f27aca3c, type: 3}
+    activeVolume: 1
+    activeByDefault: 1
+    deactivateOnLoop: 0
+    spatialize: 0
+    spatialBlend: 0
+    targetMixer: {fileID: -1726096958699811531, guid: 3160581406d5938419add16f2b504f82, type: 2}
+  - name: Melody 2
+    audioClip: {fileID: 8300000, guid: 2c815ac18ee770e4e899064c3b010b40, type: 3}
+    activeVolume: 1
+    activeByDefault: 1
+    deactivateOnLoop: 0
+    spatialize: 0
+    spatialBlend: 0
+    targetMixer: {fileID: -1726096958699811531, guid: 3160581406d5938419add16f2b504f82, type: 2}
+  trackBeatPerMinute: 96
+  beatsPerMeasure: 3
   loopRegions: []
   transitions: 0
   transitionTime: 1
