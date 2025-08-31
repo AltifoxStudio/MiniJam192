@@ -3630,7 +3630,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "c400523949e44381a9a49cab81ebffec",
     "m_Id": 0,
-    "m_DisplayName": "SequenceSpeed",
+    "m_DisplayName": "SpriteSequenceSpeed",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

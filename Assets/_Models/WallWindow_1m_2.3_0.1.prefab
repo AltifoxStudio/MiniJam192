@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 64
   m_IsActive: 1
 --- !u!4 &1685009525527395593
 Transform:
@@ -45,11 +45,11 @@ GameObject:
   - component: {fileID: 78619963937511782}
   - component: {fileID: 7329453764881649482}
   m_Layer: 0
-  m_Name: Wall_1m*2.3*0.1
+  m_Name: WallWindow_1m*2.3*0.1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 64
   m_IsActive: 1
 --- !u!4 &2369817466810716159
 Transform:
@@ -98,7 +98,8 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: bc79d7a57e433e04c8285571b566abe0, type: 2}
-  - {fileID: -1444460858095362738, guid: 886e4c7df57d18047ba5aeb72d9e640d, type: 3}
+  - {fileID: 2100000, guid: 9efcca0797e2fd948bfabe6e13fd0fa9, type: 2}
+  - {fileID: 2100000, guid: 74456b46a2f02544692c80bbc6097c76, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

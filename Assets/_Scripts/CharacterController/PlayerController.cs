@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Make the parent object look at the target
-        transform.LookAt(lookAtTarget.transform);
+        playerQuad.transform.LookAt(lookAtTarget.transform);
     }
 
     private bool CheckGround()
