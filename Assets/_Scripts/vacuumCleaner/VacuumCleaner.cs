@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using AltifoxStudio.AltifoxAudioManager;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -28,6 +29,8 @@ public class VacuumCleaner : MonoBehaviour
     private float moveSpeed;
     public float suckRate = 1f;
     public TMP_Text Status;
+
+    public Image OverloadStatus; 
 
     public float currentDustAmount = 0f;
     private float dustOverloadThreshold;
@@ -182,6 +185,7 @@ public class VacuumCleaner : MonoBehaviour
     {
         int percentage = (int)(100 * currentDustAmount / dustOverloadThreshold);
         Status.text = $"{percentage}%";
+        OverloadStatus.fillAmount = (float)percentage / 100.0f;
     }
 
     private List<Collider> FindSuckableObjects()

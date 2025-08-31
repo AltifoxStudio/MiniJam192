@@ -40,7 +40,6 @@ public class UIGameManager : MonoBehaviour
     }
 
     private void Update() {
-        Debug.Log(GameManager.Instance.gameState);
         switch (GameManager.Instance.gameState)
         {
             case GameState.Play:

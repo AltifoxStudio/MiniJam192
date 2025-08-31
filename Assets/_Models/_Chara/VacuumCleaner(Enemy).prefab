@@ -70,7 +70,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.42
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -539,6 +539,7 @@ MonoBehaviour:
   SoundPlayer: {fileID: -6143352011426755124}
   suckRate: 1.5
   Status: {fileID: 3546563076349553995}
+  OverloadStatus: {fileID: 8900526135822079332}
   currentDustAmount: 0
 --- !u!195 &8509040018913241291
 NavMeshAgent:
