@@ -43,8 +43,7 @@ GameObject:
   - component: {fileID: 8835547755475033125}
   - component: {fileID: 4922350419385847501}
   - component: {fileID: 5852157345301015932}
-  - component: {fileID: 4916903960609449258}
-  - component: {fileID: 2871367337035495246}
+  - component: {fileID: 3326180710374356146}
   m_Layer: 0
   m_Name: Carpet01
   m_TagString: Untagged
@@ -120,7 +119,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4916903960609449258
+--- !u!64 &3326180710374356146
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,27 +138,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 727529617328822534, guid: 886e4c7df57d18047ba5aeb72d9e640d, type: 3}
---- !u!65 &2871367337035495246
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4759095945557407734}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.25, y: 2.25, z: 1}
-  m_Center: {x: 0, y: 0, z: 0.5}
+  m_Mesh: {fileID: 1272240646443211607, guid: 886e4c7df57d18047ba5aeb72d9e640d, type: 3}
