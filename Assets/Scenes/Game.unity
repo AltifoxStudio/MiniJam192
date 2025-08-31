@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2783073103600032827, guid: 66d742427e8b1254ea64e45b8465d3e4, type: 3}
+      propertyPath: uiPrefab
+      value: 
+      objectReference: {fileID: 2440619809924260555, guid: 32eb62d59164e2b43b44885d83eedb75, type: 3}
     - target: {fileID: 8369051102333594394, guid: 66d742427e8b1254ea64e45b8465d3e4, type: 3}
       propertyPath: m_Name
       value: Loader
