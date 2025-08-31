@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public int TotalDustBallsInLevel { get; private set; }
     public int CollectedDustBalls { get; private set; } = 0;
 
-    public GameState gameState = GameState.MainMenu;
+    public GameState gameState = GameState.Play;
 
     private Dictionary<Transform, GameObject> _activeDustBalls = new Dictionary<Transform, GameObject>();
     private Dictionary<Transform, GameObject> _activeVacuums = new Dictionary<Transform, GameObject>();
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         // Initialize the level once the scene is fully loaded and all Awakes are done.
         InitLevel();
+        gameState = GameState.Play;
     }
 
     private void StartGame()
