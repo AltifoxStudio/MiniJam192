@@ -20,7 +20,6 @@ public class UIGameManager : MonoBehaviour
 
     [Header("In Game UI Elements")]
     public TMP_Text bunnyHealthAmount;
-    public TMP_Text vacuumState;
 
     private void Awake()
     {
@@ -53,15 +52,11 @@ public class UIGameManager : MonoBehaviour
 
     public void SetBunnyAmount(float Amount)
     {
-        bunnyHealthAmount.text = $"Bunny Dust Amount : {(int)Amount}";
+        float percentage = (Amount * 100f) / gameConfig.bunnyStartDustAmount;
+        percentage = Mathf.Clamp(percentage, 0, gameConfig.maxPlayerSize * 100);
+        bunnyHealthAmount.text = $"Dusty size : {(int)percentage} %";
     }
 
-    public void SetVacuumAmount(float Amount)
-    {
-        float vacuumStateMax = gameConfig.vacuumMaxDust;
-        int percentage = (int)(100 * Amount / vacuumStateMax);
-        vacuumState.text = $"Vacuum Status: {percentage}%";
-    }
 
     public void OnRestartClick()
     {

@@ -14,7 +14,6 @@ public class DustBalls : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<HasDust>().GetDust(hasDust.dustAmount);
-            Debug.Log("Dust ball collected by the Player!");
             GameManager.Instance.OnDustBallCollected();
             // Optional: Destroy the dust ball after it's collected
             Destroy(gameObject);

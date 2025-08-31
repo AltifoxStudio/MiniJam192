@@ -25,5 +25,5 @@ MonoBehaviour:
   vaccumAngle: 90
   vaccumRadius: 0.5
   vacuumSpeed: 1.2
-  vacuumMaxDust: 75
+  vacuumMaxDust: 150
   distanceToShowVacuum: 0.5

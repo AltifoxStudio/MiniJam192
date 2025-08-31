@@ -111,7 +111,6 @@ public class GameManager : MonoBehaviour
     public void OnDustBallCollected()
     {
         CollectedDustBalls++;
-        Debug.Log($"Dust balls collected: {CollectedDustBalls}/{TotalDustBallsInLevel}");
         // Here you could update UI or check other conditions.
     }
 

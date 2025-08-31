@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using TMPro;
 
 [RequireComponent(typeof(NavMeshAgent))] 
 public class VacuumCleaner : MonoBehaviour
@@ -21,6 +22,7 @@ public class VacuumCleaner : MonoBehaviour
     private float radius;
     private float moveSpeed;
     public float suckRate = 1f;
+    public TMP_Text Status;
 
     public float currentDustAmount = 0f;
     private float dustOverloadThreshold;
@@ -75,85 +77,91 @@ public class VacuumCleaner : MonoBehaviour
     }
 
 
-private void SuckObjects()
-{
-    // Find all objects currently in range
-    List<Collider> detectedColliders = FindSuckableObjects();
-    // Using a HashSet provides much faster lookups than a List for checking existence.
-    HashSet<Collider> detectedSet = new HashSet<Collider>(detectedColliders);
-
-    // --- 1. REMOVAL: Find objects that are no longer in range ---
-    List<Collider> collidersToRemove = new List<Collider>();
-    foreach (Collider trackedCollider in suckedObjectsVFX.Keys)
+    private void SuckObjects()
     {
-        // If a tracked object is no longer in the detected set, mark it for removal.
-        if (!detectedSet.Contains(trackedCollider))
-        {
-            collidersToRemove.Add(trackedCollider);
-        }
-    }
+        // Find all objects currently in range
+        List<Collider> detectedColliders = FindSuckableObjects();
+        // Using a HashSet provides much faster lookups than a List for checking existence.
+        HashSet<Collider> detectedSet = new HashSet<Collider>(detectedColliders);
 
-    // Now, safely remove the marked objects and destroy their VFX
-    foreach (Collider colliderToRemove in collidersToRemove)
-    {
-        if (suckedObjectsVFX.TryGetValue(colliderToRemove, out ParticleFlowController vfx))
+        // --- 1. REMOVAL: Find objects that are no longer in range ---
+        List<Collider> collidersToRemove = new List<Collider>();
+        foreach (Collider trackedCollider in suckedObjectsVFX.Keys)
         {
-            if (vfx != null) // Always check if the VFX still exists
+            // If a tracked object is no longer in the detected set, mark it for removal.
+            if (!detectedSet.Contains(trackedCollider))
             {
-               Destroy(vfx.gameObject);
+                collidersToRemove.Add(trackedCollider);
             }
-            suckedObjectsVFX.Remove(colliderToRemove);
         }
-    }
 
-    // --- 2. ADDITION: Find newly detected objects ---
-    foreach (Collider detectedCollider in detectedColliders)
-    {
-        // If a detected object is not already being tracked, start tracking it.
-        if (!suckedObjectsVFX.ContainsKey(detectedCollider))
+        // Now, safely remove the marked objects and destroy their VFX
+        foreach (Collider colliderToRemove in collidersToRemove)
         {
-            // Instantiate a new VFX for this object
-            ParticleFlowController newVFX = Instantiate(dustFlowVFX, transform.position, Quaternion.identity);
+            if (suckedObjectsVFX.TryGetValue(colliderToRemove, out ParticleFlowController vfx))
+            {
+                if (vfx != null) // Always check if the VFX still exists
+                {
+                Destroy(vfx.gameObject);
+                }
+                suckedObjectsVFX.Remove(colliderToRemove);
+            }
+        }
+
+        // --- 2. ADDITION: Find newly detected objects ---
+        foreach (Collider detectedCollider in detectedColliders)
+        {
+            // If a detected object is not already being tracked, start tracking it.
+            if (!suckedObjectsVFX.ContainsKey(detectedCollider))
+            {
+                // Instantiate a new VFX for this object
+                ParticleFlowController newVFX = Instantiate(dustFlowVFX, transform.position, Quaternion.identity);
+                
+                // Add the new object and its VFX to the dictionary
+                suckedObjectsVFX.Add(detectedCollider, newVFX);
+            }
+        }
+
+        // --- 3. UPDATE: Apply logic to all currently tracked objects ---
+        foreach (var pair in suckedObjectsVFX)
+        {
+            Collider itemCollider = pair.Key;
+            ParticleFlowController vfx = pair.Value;
+
+            // Skip if the object was somehow destroyed by another script
+            if (itemCollider == null) continue; 
+
+            // Apply your suction force logic
+            itemCollider.gameObject.GetComponent<HasDust>().GiveDust(suckRate);
+            currentDustAmount += suckRate;
+            SetPercentage();
+            if (currentDustAmount > dustOverloadThreshold)
+            {
+                Debug.Log("Destroying");
+                Destroy(gameObject);
+            }
+            Rigidbody rb = itemCollider.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 direction = (transform.position - itemCollider.transform.position).normalized;
+                rb.AddForce(direction * suckForce * Time.deltaTime);
+            }
             
-            // Add the new object and its VFX to the dictionary
-            suckedObjectsVFX.Add(detectedCollider, newVFX);
+            // Update the VFX to flow from the object to the vacuum
+            // You'll need a method on your 'ParticleFlowController' to handle this.
+            if(vfx != null)
+            {
+                // Example: Assumes your VFX script has a method to set its target
+                vfx.SetTargets(itemCollider.transform, transform); 
+            }
         }
     }
 
-    // --- 3. UPDATE: Apply logic to all currently tracked objects ---
-    foreach (var pair in suckedObjectsVFX)
+    private void SetPercentage()
     {
-        Collider itemCollider = pair.Key;
-        ParticleFlowController vfx = pair.Value;
-
-        // Skip if the object was somehow destroyed by another script
-        if (itemCollider == null) continue; 
-
-        // Apply your suction force logic
-        itemCollider.gameObject.GetComponent<HasDust>().GiveDust(suckRate);
-        currentDustAmount += suckRate;
-        UIGameManager.Instance.SetVacuumAmount(currentDustAmount);
-        if (currentDustAmount > dustOverloadThreshold)
-        {
-            Debug.Log("Destroying");
-            Destroy(gameObject);
-        }
-        Rigidbody rb = itemCollider.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            Vector3 direction = (transform.position - itemCollider.transform.position).normalized;
-            rb.AddForce(direction * suckForce * Time.deltaTime);
-        }
-        
-        // Update the VFX to flow from the object to the vacuum
-        // You'll need a method on your 'ParticleFlowController' to handle this.
-        if(vfx != null)
-        {
-            // Example: Assumes your VFX script has a method to set its target
-            vfx.SetTargets(itemCollider.transform, transform); 
-        }
+        int percentage = (int)(100 * currentDustAmount / dustOverloadThreshold);
+        Status.text = $"{percentage}%";
     }
-}
 
     private List<Collider> FindSuckableObjects()
     {
