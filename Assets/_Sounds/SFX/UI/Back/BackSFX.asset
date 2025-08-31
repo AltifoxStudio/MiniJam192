@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e242a6993a9cf428ca36f0c37870d8bb, type: 3}
+  m_Name: BackSFX
+  m_EditorClassIdentifier: 
+  audioClips: []
+  volume:
+    defaultValue: 0
+    minDeviation: 0
+    maxDeviation: 0
+    enableRandomness: 0
+  pitch:
+    defaultValue: 0
+    minDeviation: 0
+    maxDeviation: 0
+    enableRandomness: 0
+  targetMixer: {fileID: 0}
+  playbackType: 0
+  cooldown: 0
+  spatialize: 1
+  maxInstances: 2147483647
+  spatialBlend: 1
+  minDistanceSpatialize: 5
+  maxDistanceSpatialize: 500
