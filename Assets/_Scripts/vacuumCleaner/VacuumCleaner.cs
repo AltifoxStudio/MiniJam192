@@ -19,8 +19,6 @@ public class VacuumCleaner : MonoBehaviour
 
     public ParticleFlowController dustFlowVFX;
 
-    public AltifoxPersistentSFXPlayer SoundPlayer;
-    private bool soundIsPlaying = false;
 
     // Parameters from GameConfig
     private float angle;
@@ -70,22 +68,6 @@ public class VacuumCleaner : MonoBehaviour
     private void Update()
     {
         FollowPlayer();
-        if (!soundIsPlaying)
-        {
-            try
-            {
-                SoundPlayer.Play();
-                if (SoundPlayer.audioSource.isPlaying)
-                {
-                    soundIsPlaying = true;  
-                }
-            }
-            catch (System.Exception)
-            {
-                // pass 
-            }
-
-        }
     }
 
     private void FixedUpdate()
@@ -216,6 +198,7 @@ public class VacuumCleaner : MonoBehaviour
 
     private void OnDestroy()
     {
+        //AltifoxAudioManager.Instance.ReleaseAltifoxAudioSource(SoundPlayer.audioSource);
         // Destroy all active VFX when the vacuum itself is destroyed
         foreach (var vfx in suckedObjectsVFX.Values)
         {
@@ -233,7 +216,6 @@ public class VacuumCleaner : MonoBehaviour
             {
                 SFXManager.Instance.deathOfAVacuum.PreloadAndPlay();
             }
-            AltifoxAudioManager.Instance.ReleaseAltifoxAudioSource(SoundPlayer.audioSource);
         }
         catch (System.Exception)
         {

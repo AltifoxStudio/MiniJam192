@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     private void InitLevel()
     {
+        _activeVacuums.Clear();
+        _activeDustBalls.Clear();
         // Find all spawner locations in the scene
         var dustBallSpawners = FindObjectsByType<DustBallsSpawners>(FindObjectsSortMode.None).Select(s => s.transform).ToArray();
         var vacuumSpawners = FindObjectsByType<VacuumSpawner>(FindObjectsSortMode.None).Select(s => s.transform).ToArray();
@@ -89,8 +91,6 @@ public class GameManager : MonoBehaviour
         // Spawn Player
         Instantiate(playerPrefab, playerSpawner.position, playerSpawner.rotation);
 
-        Debug.Log("Level Initialized.");
-        Debug.Log(_activeVacuums);
     }
 
     private void Update()
@@ -152,25 +152,11 @@ public class GameManager : MonoBehaviour
     public void OnDeath()
     {
         gameState = GameState.Death;
-        foreach (Transform spawner in _activeVacuums.Keys.ToList())
-        {
-            if (_activeVacuums[spawner] != null) // Check if the dust ball was destroyed
-            {
-                _activeVacuums[spawner].GetComponent<VacuumCleaner>().SoundPlayer.FadeOut(0, InterpolationType.Linear);
-            }
-        }
     }
 
     public void OnWinLevel()
     {
         gameState = GameState.win;
         UIGameManager.Instance.OnWinLevel(currentLevelIndex);
-        foreach (Transform spawner in _activeVacuums.Keys.ToList())
-        {
-            if (_activeVacuums[spawner] != null) // Check if the dust ball was destroyed
-            {
-                _activeVacuums[spawner].GetComponent<VacuumCleaner>().SoundPlayer.FadeOut(0, InterpolationType.Linear);
-            }
-        }
     }
 }

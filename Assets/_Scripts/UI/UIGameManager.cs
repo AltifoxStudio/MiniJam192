@@ -56,6 +56,7 @@ public class UIGameManager : MonoBehaviour
                 break;
 
             case GameState.win:
+                Debug.Log("current level "+GameManager.Instance.currentLevelIndex);
                 for (int i = 0; i < WinScreens.Length; i++)
                 {
                     if (i == GameManager.Instance.currentLevelIndex)
