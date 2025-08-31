@@ -340,7 +340,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0.7, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &8953207073605828693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,35 +392,35 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   MoveLeftTextures:
-  - {fileID: 2800000, guid: 47e4be02d9713c14ca2d4cf83d8d15c2, type: 3}
+  - {fileID: 2800000, guid: 5586d5dc259b9414fb2003327778ba60, type: 3}
   MoveLeftFXTextures:
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: 73051e8c5a8eb4149b78b5ea5cc5b234, type: 3}
+  - {fileID: 2800000, guid: e5c8e48fd9dc1324dbabe3a51b067979, type: 3}
   MoveRightTextures:
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: 2685dcaad7c01c54dba4f3bac3a1bc42, type: 3}
   MoveRightFXTextures:
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: 73051e8c5a8eb4149b78b5ea5cc5b234, type: 3}
+  - {fileID: 2800000, guid: e5c8e48fd9dc1324dbabe3a51b067979, type: 3}
   MoveUpRightTextures:
-  - {fileID: 2800000, guid: 936969127b06cf141904042bb49625c7, type: 3}
+  - {fileID: 2800000, guid: 08b3607a558f93745a6b3566e5a02ee4, type: 3}
   MoveUpRightFXTextures:
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: ea2f3cb611393a3488052226055d7310, type: 3}
+  - {fileID: 2800000, guid: 1079ca2eb25b95b4baf1e3d7b1d61310, type: 3}
   MoveUpLeftTextures:
-  - {fileID: 2800000, guid: 7db7dd154c4a5804e831c253f899085c, type: 3}
+  - {fileID: 2800000, guid: b6d8746c26f651040bb0bb89cb42d923, type: 3}
   MoveUpLeftFXTextures:
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: ea2f3cb611393a3488052226055d7310, type: 3}
+  - {fileID: 2800000, guid: 1079ca2eb25b95b4baf1e3d7b1d61310, type: 3}
   MoveDownLeftTextures:
-  - {fileID: 2800000, guid: 4c187f83c6d96014b85bd358201f358d, type: 3}
+  - {fileID: 2800000, guid: f32a1bf666bb03749b2cf3c4fc9b3e4f, type: 3}
   MoveDownLeftFXTextures:
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: 73051e8c5a8eb4149b78b5ea5cc5b234, type: 3}
+  - {fileID: 2800000, guid: cd0b7f25fb71f904597466172df3d94d, type: 3}
   MoveDownRightTextures:
-  - {fileID: 2800000, guid: a17524aaa794c1c4fbfbef8f83bf362d, type: 3}
+  - {fileID: 2800000, guid: 261ca829c44b0354b90494650d6c3e25, type: 3}
   MoveDownRightFXTextures:
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
-  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: e5c8e48fd9dc1324dbabe3a51b067979, type: 3}
+  - {fileID: 2800000, guid: cd0b7f25fb71f904597466172df3d94d, type: 3}
   groundCheckPoint: {fileID: 5138773262464640872}
   groundCheckDistance: 0.1
   groundCheckRadius: 0.1
