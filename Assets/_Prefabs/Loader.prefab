@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 060fde4ea5e0a0748acb067dec1801e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIPrefab: {fileID: 2440619809924260555, guid: 32eb62d59164e2b43b44885d83eedb75, type: 3}
-  gameLogicPrefab: {fileID: 2295275976634660918, guid: 240f1b2abf8578349a165a293bea7a21, type: 3}
+  uiPrefab: {fileID: 2440619809924260555, guid: 32eb62d59164e2b43b44885d83eedb75, type: 3}
   musicPrefab: {fileID: 7433783906195124929, guid: 90ed1f5728d355e46ad4338eaed74363, type: 3}
   environmentAnd3DPrefab: {fileID: 6582981386680236630, guid: 963a2fe2029485f40a953cc32b495234, type: 3}
   gameDesignPrefab: {fileID: 9129793580414478158, guid: 419f209bdc938834cbdfaaead4b629b1, type: 3}
+  gameLogicPrefab: {fileID: 2295275976634660918, guid: 240f1b2abf8578349a165a293bea7a21, type: 3}

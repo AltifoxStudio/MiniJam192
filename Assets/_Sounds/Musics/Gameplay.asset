@@ -39,7 +39,22 @@ MonoBehaviour:
     targetMixer: {fileID: -1726096958699811531, guid: 3160581406d5938419add16f2b504f82, type: 2}
   trackBeatPerMinute: 96
   beatsPerMeasure: 3
-  loopRegions: []
+  loopRegions:
+  - LoopDefinitionType: 0
+    IntroStartTimeSeconds: 0
+    LoopStartTimeSeconds: 0
+    LoopEndTimeSeconds: 60
+    BeatsPerMeasure: 0
+    BeatsPerMinute: 0
+    IntroStartPoint:
+      Measure: 1
+      Beat: 1
+    LoopStartPoint:
+      Measure: 1
+      Beat: 1
+    LoopEndPoint:
+      Measure: 34
+      Beat: 1
   transitions: 0
   transitionTime: 1
   switchOn: 0
