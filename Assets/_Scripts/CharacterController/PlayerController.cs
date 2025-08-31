@@ -173,11 +173,11 @@ public class PlayerController : MonoBehaviour
 
 
         // Flip the player sprite
-        if (moveValue.x < -0.1f)
+        if (moveValue.x > 0.1f)
         {
             lookDirection = LookDirection.Left;
         }
-        else if (moveValue.x > 0.1f)
+        else if (moveValue.x < -0.1f)
         {
             lookDirection = LookDirection.Right;
         }
