@@ -1,14 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using AltifoxStudio.AltifoxAudioManager;
 using UnityEngine.AI;
 using TMPro;
 
-[RequireComponent(typeof(NavMeshAgent))] 
+[RequireComponent(typeof(NavMeshAgent))]
 public class VacuumCleaner : MonoBehaviour
 {
     [Tooltip("Reference to the game's configuration asset.")]
     public GameConfig gameConfig;
-    
+
     [Tooltip("The layer(s) containing objects that can be vacuumed.")]
     public LayerMask suckableLayer;
 
@@ -17,9 +18,13 @@ public class VacuumCleaner : MonoBehaviour
 
     public ParticleFlowController dustFlowVFX;
 
+    public AltifoxPersistentSFXPlayer SoundPlayer;
+    private bool soundIsPlaying = false;
+
     // Parameters from GameConfig
     private float angle;
     private float radius;
+    private float vacuumHeight; // ADDED: Height of the vacuum cone
     private float moveSpeed;
     public float suckRate = 1f;
     public TMP_Text Status;
@@ -27,7 +32,6 @@ public class VacuumCleaner : MonoBehaviour
     public float currentDustAmount = 0f;
     private float dustOverloadThreshold;
 
-    // ADDED: Pathfinding variables
     private NavMeshAgent agent;
     private Transform playerTransform;
 
@@ -38,6 +42,7 @@ public class VacuumCleaner : MonoBehaviour
         // Load parameters from the ScriptableObject
         angle = gameConfig.vaccumAngle;
         radius = gameConfig.vaccumRadius;
+        vacuumHeight = gameConfig.vacuumHeight; // ADDED: Load the height
         moveSpeed = gameConfig.vacuumSpeed;
         dustOverloadThreshold = gameConfig.vacuumMaxDust;
 
@@ -58,16 +63,30 @@ public class VacuumCleaner : MonoBehaviour
         }
     }
 
+
     private void Update()
     {
         FollowPlayer();
-       
+        if (!soundIsPlaying)
+        {
+            try
+            {
+                SoundPlayer.Play();
+                soundIsPlaying = true;
+            }
+            catch (System.Exception)
+            {
+                // pass 
+            }
+
+        }
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         SuckObjects();
     }
-    
+
     private void FollowPlayer()
     {
         if (playerTransform != null)
@@ -102,7 +121,7 @@ public class VacuumCleaner : MonoBehaviour
             {
                 if (vfx != null) // Always check if the VFX still exists
                 {
-                Destroy(vfx.gameObject);
+                    Destroy(vfx.gameObject);
                 }
                 suckedObjectsVFX.Remove(colliderToRemove);
             }
@@ -116,7 +135,7 @@ public class VacuumCleaner : MonoBehaviour
             {
                 // Instantiate a new VFX for this object
                 ParticleFlowController newVFX = Instantiate(dustFlowVFX, transform.position, Quaternion.identity);
-                
+
                 // Add the new object and its VFX to the dictionary
                 suckedObjectsVFX.Add(detectedCollider, newVFX);
             }
@@ -129,7 +148,7 @@ public class VacuumCleaner : MonoBehaviour
             ParticleFlowController vfx = pair.Value;
 
             // Skip if the object was somehow destroyed by another script
-            if (itemCollider == null) continue; 
+            if (itemCollider == null) continue;
 
             // Apply your suction force logic
             itemCollider.gameObject.GetComponent<HasDust>().GiveDust(suckRate);
@@ -146,13 +165,12 @@ public class VacuumCleaner : MonoBehaviour
                 Vector3 direction = (transform.position - itemCollider.transform.position).normalized;
                 rb.AddForce(direction * suckForce * Time.deltaTime);
             }
-            
+
             // Update the VFX to flow from the object to the vacuum
-            // You'll need a method on your 'ParticleFlowController' to handle this.
-            if(vfx != null)
+            if (vfx != null)
             {
                 // Example: Assumes your VFX script has a method to set its target
-                vfx.SetTargets(itemCollider.transform, transform); 
+                vfx.SetTargets(itemCollider.transform, transform);
             }
         }
     }
@@ -171,10 +189,19 @@ public class VacuumCleaner : MonoBehaviour
 
         foreach (Collider collider in collidersInSphere)
         {
-            Vector3 directionToCollider = (collider.transform.position - transform.position).normalized;
-            if (Vector3.Dot(transform.forward, directionToCollider) >= coneAngleCos)
+            // MODIFIED: This check is now more robust and uses the new vacuumHeight variable.
+            // It ensures the object is above the vacuum's base but below its max height reach.
+            float heightDifference = collider.transform.position.y - transform.position.y;
+            if (heightDifference < vacuumHeight)
             {
-                objectsInCone.Add(collider);
+                Vector3 directionToCollider = (collider.transform.position - transform.position).normalized;
+                // We ignore the Y-axis for the angle check to make it a true cone, not a spherical segment.
+                directionToCollider.y = 0;
+
+                if (Vector3.Dot(transform.forward, directionToCollider.normalized) >= coneAngleCos)
+                {
+                    objectsInCone.Add(collider);
+                }
             }
         }
         return objectsInCone;
@@ -192,32 +219,53 @@ public class VacuumCleaner : MonoBehaviour
         }
         // Clear the dictionary to be tidy
         suckedObjectsVFX.Clear();
+        AltifoxAudioManager.Instance.ReleaseAltifoxAudioSource(SoundPlayer.audioSource);
     }
 
+    // MODIFIED: The entire Gizmo drawing function is updated for 3D preview.
     private void OnDrawGizmosSelected()
     {
-        if (gameConfig != null && (angle == 0 || radius == 0))
+        // Ensure parameters are loaded from GameConfig for editor preview
+        if (gameConfig != null)
         {
             angle = gameConfig.vaccumAngle;
             radius = gameConfig.vaccumRadius;
+            vacuumHeight = gameConfig.vacuumHeight;
         }
 
-        Gizmos.color = Color.cyan;
-        Vector3 forward = transform.forward;
         Vector3 position = transform.position;
+        Vector3 forward = transform.forward;
+        Vector3 up = transform.up;
 
-        Quaternion leftRayRotation = Quaternion.AngleAxis(-angle / 2f, transform.up);
-        Quaternion rightRayRotation = Quaternion.AngleAxis(angle / 2f, transform.up);
-
+        // Calculate cone edge directions
+        Quaternion leftRayRotation = Quaternion.AngleAxis(-angle / 2f, up);
+        Quaternion rightRayRotation = Quaternion.AngleAxis(angle / 2f, up);
         Vector3 leftRayDirection = leftRayRotation * forward;
         Vector3 rightRayDirection = rightRayRotation * forward;
 
+        // Define the top position of the cone
+        Vector3 topPosition = position + up * vacuumHeight;
+
+        // --- Draw the Bottom Arc ---
+        Gizmos.color = Color.cyan;
         Gizmos.DrawLine(position, position + leftRayDirection * radius);
         Gizmos.DrawLine(position, position + rightRayDirection * radius);
 
+        // --- Draw the Top Arc ---
+        Gizmos.DrawLine(topPosition, topPosition + leftRayDirection * radius);
+        Gizmos.DrawLine(topPosition, topPosition + rightRayDirection * radius);
+
+        // --- Draw Vertical Connecting Lines ---
+        Gizmos.DrawLine(position + leftRayDirection * radius, topPosition + leftRayDirection * radius);
+        Gizmos.DrawLine(position + rightRayDirection * radius, topPosition + rightRayDirection * radius);
+
 #if UNITY_EDITOR
+        // Draw the filled arcs for better visualization
         UnityEditor.Handles.color = new Color(0, 1, 1, 0.1f);
-        UnityEditor.Handles.DrawSolidArc(position, transform.up, leftRayDirection, angle, radius);
+        // Bottom arc
+        UnityEditor.Handles.DrawSolidArc(position, up, leftRayDirection, angle, radius);
+        // Top arc
+        UnityEditor.Handles.DrawSolidArc(topPosition, up, leftRayDirection, angle, radius);
 #endif
     }
 }

@@ -17,7 +17,6 @@ public class SFXManager : MonoBehaviour
         {
             Instance = this;
             // Optional: Prevents the manager from being destroyed when a new scene loads.
-            DontDestroyOnLoad(gameObject); 
         }
         // If an instance already exists, destroy this duplicate object.
         else

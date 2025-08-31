@@ -357,6 +357,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8509040018913241291}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6143352011426755124}
   m_SourcePrefab: {fileID: 100100000, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}
 --- !u!1 &1646841719021387039 stripped
 GameObject:
@@ -381,6 +384,7 @@ MonoBehaviour:
     m_Bits: 8
   suckForce: 500
   dustFlowVFX: {fileID: -5403364860114768380, guid: e08c1713a274b5949ac3e2444d148705, type: 3}
+  SoundPlayer: {fileID: -6143352011426755124}
   suckRate: 1.5
   Status: {fileID: 3546563076349553995}
   currentDustAmount: 0
@@ -406,6 +410,42 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-6143352011426755124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646841719021387039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c952c87dab08d40acda20a9d5949c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  altifoxSFX: {fileID: 11400000, guid: d743bf07ed799124587f837d8fb0ca07, type: 2}
+  audioSource: {fileID: 0}
+  playOnAwake: 0
+  useDoubleBuffering: 1
+  looping: 1
+  loop:
+    LoopDefinitionType: 0
+    IntroStartTimeSeconds: 0
+    LoopStartTimeSeconds: 0
+    LoopEndTimeSeconds: 8
+    BeatsPerMeasure: 4
+    BeatsPerMinute: 120
+    IntroStartPoint:
+      Measure: 1
+      Beat: 1
+    LoopStartPoint:
+      Measure: 2
+      Beat: 1
+    LoopEndPoint:
+      Measure: 3
+      Beat: 1
+  exitLoopFlag: 0
+  loopStartTime: 0
+  loopEndTime: -1
 --- !u!4 &2130503331404081061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f69b9a5f76b920647821e7e7cb6b342c, type: 3}

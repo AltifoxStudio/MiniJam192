@@ -12,22 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e242a6993a9cf428ca36f0c37870d8bb, type: 3}
   m_Name: VacuumSound
   m_EditorClassIdentifier: 
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: 85ca81d8931b02f46841d6a6afc002c7, type: 3}
   volume:
-    defaultValue: 0
+    defaultValue: 0.1
     minDeviation: 0
     maxDeviation: 0
     enableRandomness: 0
   pitch:
-    defaultValue: 0
-    minDeviation: 0
-    maxDeviation: 0
-    enableRandomness: 0
+    defaultValue: 1
+    minDeviation: 0.05
+    maxDeviation: 0.05
+    enableRandomness: 1
   targetMixer: {fileID: 0}
   playbackType: 0
   cooldown: 0
   spatialize: 1
-  maxInstances: 2147483647
+  maxInstances: 2
   spatialBlend: 1
   minDistanceSpatialize: 5
   maxDistanceSpatialize: 500

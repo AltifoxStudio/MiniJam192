@@ -26,6 +26,7 @@ public class GameConfig : ScriptableObject
     public float vaccumRadius = 0.5f; // Metres
     [Range(0.5f, 3f)]
     public float vacuumSpeed = 1.2f;
+    public float vacuumHeight = 0.3f;
     public float vacuumMaxDust = 250f;
 
     [Header("Camera Config")]
