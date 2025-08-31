@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     public float wallCheckRadius = 0.4f;
     public float wallCheckDistance = 0.2f;
     public LayerMask wallLayer;
+    public float VecticalOffsetForWallDetection = 0.1f;
 
     private void Awake()
     {
@@ -149,6 +150,8 @@ public class PlayerController : MonoBehaviour
             
             // Calculate the starting point of the spherecast using the offset
             Vector3 origin = transform.position + moveDirection * wallCheckOffset;
+            Vector3 VecticalOffset = new Vector3(0f, VecticalOffsetForWallDetection, 0f);
+            origin += VecticalOffset;
 
             // Visualize the cast in the Scene view for easy debugging
             //Debug.DrawRay(origin, moveDirection * wallCheckDistance, Color.red);
