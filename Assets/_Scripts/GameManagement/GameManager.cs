@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     private Dictionary<Transform, GameObject> _activeDustBalls = new Dictionary<Transform, GameObject>();
     private Dictionary<Transform, GameObject> _activeVacuums = new Dictionary<Transform, GameObject>();
 
+    public int currentLevelIndex = 0;
+
     private void Awake()
     {
         // Singleton logic
@@ -99,7 +101,7 @@ public class GameManager : MonoBehaviour
                 int remainingVacuums = _activeVacuums.Values.Count(v => v != null);
             if (remainingVacuums == 0)
             {
-                OnWinLevel(SceneManager.GetActiveScene().buildIndex);
+                OnWinLevel();
                 this.enabled = false; // Disable component to stop further checks.
             }
         }
@@ -159,10 +161,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnWinLevel(int levelIndex)
+    public void OnWinLevel()
     {
         gameState = GameState.win;
-        UIGameManager.Instance.OnWinLevel(levelIndex);
+        UIGameManager.Instance.OnWinLevel(currentLevelIndex);
         foreach (Transform spawner in _activeVacuums.Keys.ToList())
         {
             if (_activeVacuums[spawner] != null) // Check if the dust ball was destroyed

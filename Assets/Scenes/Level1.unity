@@ -167,6 +167,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2783073103600032827, guid: 66d742427e8b1254ea64e45b8465d3e4, type: 3}
+      propertyPath: gameDesignPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783073103600032827, guid: 66d742427e8b1254ea64e45b8465d3e4, type: 3}
+      propertyPath: 'gameDesignPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 9129793580414478158, guid: 419f209bdc938834cbdfaaead4b629b1, type: 3}
+    - target: {fileID: 2783073103600032827, guid: 66d742427e8b1254ea64e45b8465d3e4, type: 3}
+      propertyPath: environmentAnd3DPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783073103600032827, guid: 66d742427e8b1254ea64e45b8465d3e4, type: 3}
+      propertyPath: 'environmentAnd3DPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6582981386680236630, guid: 963a2fe2029485f40a953cc32b495234, type: 3}
     - target: {fileID: 8369051102333594394, guid: 66d742427e8b1254ea64e45b8465d3e4, type: 3}
       propertyPath: m_Name
       value: Loader

@@ -17,6 +17,14 @@ public class SceneLoader : MonoBehaviour
         // Check if the sceneName is not empty or null
         if (!string.IsNullOrEmpty(sceneName))
         {
+            if (sceneName == "level1")
+            {
+                GameManager.Instance.currentLevelIndex = 0;
+            }
+            else if (sceneName == "level2")
+            {
+                GameManager.Instance.currentLevelIndex = 1;
+            }
             SceneManager.LoadScene(sceneName);
         }
         else
