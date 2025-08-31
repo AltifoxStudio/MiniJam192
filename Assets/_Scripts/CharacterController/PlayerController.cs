@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public GameConfig gameConfig;
     public GameObject lookAtTarget;
     public GameObject playerQuad;
+    public GameObject LookAtContainer;
     public bool infiniteJump;
     public LayerMask groundLayer;
     
@@ -99,7 +100,6 @@ public class PlayerController : MonoBehaviour
     {
         // We always check for the ground
         isGrounded = CheckGround();
-        Debug.Log(isGrounded);
         HandleMovement();
         HandleDash();
         HandleRotationAndAnimation();
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Make the parent object look at the target
-        playerQuad.transform.LookAt(lookAtTarget.transform);
+        LookAtContainer.transform.LookAt(lookAtTarget.transform);
     }
 
     private bool CheckGround()

@@ -5,107 +5,121 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    // 1. Public static instance
+    // --- Singleton Instance ---
     public static GameManager Instance { get; private set; }
 
-    public GameObject vaccumCleanerPrefab;
-    public GameObject DustBallPrefab;
-    public GameConfig gameConfig;
+    // --- Inspector References ---
+    [Header("Core Prefabs")]
+    [SerializeField] private GameObject vacuumCleanerPrefab;
+    [SerializeField] private GameObject dustBallPrefab;
+    [SerializeField] private GameObject playerPrefab;
+    
+    [Header("Configuration")]
+    [SerializeField] private GameConfig gameConfig;
 
-    private Transform[] vacuumSpawnPoints;
-    private Transform[] dustBallsSpawnPoints;
+    // --- Level State ---
+    public int TotalDustBallsInLevel { get; private set; }
+    public int CollectedDustBalls { get; private set; } = 0;
 
-    public int totalDustBallsInLevel;
-    public int collectedDustBalls = 0;
-    public int remaininVacuums = 0;
-
-    private Dictionary<Transform, GameObject> ActiveDustBalls = new Dictionary<Transform, GameObject>();
-    private Dictionary<Transform, GameObject> ActiveVacuums = new Dictionary<Transform, GameObject>();
+    private Dictionary<Transform, GameObject> _activeDustBalls = new Dictionary<Transform, GameObject>();
+    private Dictionary<Transform, GameObject> _activeVacuums = new Dictionary<Transform, GameObject>();
 
     private void Awake()
     {
-        // 2. Singleton logic
+        // Singleton logic
         if (Instance != null && Instance != this)
         {
-            // If another instance exists, destroy this one.
             Destroy(this.gameObject);
         }
         else
         {
-            // Otherwise, set this as the instance.
             Instance = this;
-            // Optional: if you want the GameManager to persist across scenes
-            // DontDestroyOnLoad(this.gameObject);
         }
-
-        // Your original Awake logic
-        dustBallsSpawnPoints = FindObjectsByType<DustBallsSpawners>(FindObjectsSortMode.None)
-                                    .Select(dbSpawner => dbSpawner.transform)
-                                    .ToArray();
-        totalDustBallsInLevel = dustBallsSpawnPoints.Length;
-        vacuumSpawnPoints = FindObjectsByType<VacuumSpawner>(FindObjectsSortMode.None)
-                            .Select(vSpawner => vSpawner.transform)
-                            .ToArray();
     }
 
     private void Start()
     {
-        foreach (Transform dustSpawner in dustBallsSpawnPoints)
+        // Initialize the level once the scene is fully loaded and all Awakes are done.
+        InitLevel();
+    }
+
+    private void InitLevel()
+    {
+        // Find all spawner locations in the scene
+        var dustBallSpawners = FindObjectsByType<DustBallsSpawners>(FindObjectsSortMode.None).Select(s => s.transform).ToArray();
+        var vacuumSpawners = FindObjectsByType<VacuumSpawner>(FindObjectsSortMode.None).Select(s => s.transform).ToArray();
+        var playerSpawner = FindFirstObjectByType<PlayerSpawner>().transform;
+
+        TotalDustBallsInLevel = dustBallSpawners.Length;
+
+        // Spawn Dust Balls
+        foreach (Transform spawner in dustBallSpawners)
         {
-            GameObject dustGO = Instantiate(DustBallPrefab, dustSpawner.position, dustSpawner.rotation);
-            ActiveDustBalls.Add(dustSpawner, dustGO);
+            GameObject dustGO = Instantiate(dustBallPrefab, spawner.position, spawner.rotation);
+            _activeDustBalls.Add(spawner, dustGO);
         }
-        foreach (Transform vacuumSpawner in vacuumSpawnPoints)
+
+        // Spawn Vacuums
+        foreach (Transform spawner in vacuumSpawners)
         {
-            GameObject vacuum = Instantiate(vaccumCleanerPrefab, vacuumSpawner.position, vacuumSpawner.rotation);
-            ActiveVacuums.Add(vacuumSpawner, vacuum);
+            GameObject vacuum = Instantiate(vacuumCleanerPrefab, spawner.position, spawner.rotation);
+            _activeVacuums.Add(spawner, vacuum);
         }
-;
+
+        // Spawn Player
+        Instantiate(playerPrefab, playerSpawner.position, playerSpawner.rotation);
+
+        Debug.Log("Level Initialized.");
     }
 
     private void Update()
     {
-        // Count how many values in the dictionary are not null.
-        int remainingVacuums = ActiveVacuums.Values.Count(value => value != null);
-
+        // Check for win condition: all vacuums are destroyed.
+        int remainingVacuums = _activeVacuums.Values.Count(v => v != null);
         if (remainingVacuums == 0)
         {
-            OnWinLevel(0);
-            // It might be wise to disable this component after winning to stop the Update calls.
-            // this.enabled = false;
+            OnWinLevel(SceneManager.GetActiveScene().buildIndex);
+            this.enabled = false; // Disable component to stop further checks.
         }
     }
 
     private void FixedUpdate()
     {
-        List<Transform> keys = ActiveDustBalls.Keys.ToList();
-        foreach (Transform dustSpawner in keys)
+        // Check if any dust balls need to be respawned.
+        RespawnDustBalls();
+    }
+    
+    private void RespawnDustBalls()
+    {
+        // Using ToList() creates a copy, preventing modification errors during iteration.
+        foreach (Transform spawner in _activeDustBalls.Keys.ToList())
         {
-            // Check if the GameObject for this spawner has been destroyed (is null)
-            if (ActiveDustBalls[dustSpawner] == null)
+            if (_activeDustBalls[spawner] == null) // Check if the dust ball was destroyed
             {
-                // We use Random.value which returns a float between 0.0 and 1.0.
-                // Multiplying by Time.deltaTime makes the probability independent of the frame rate.
+                // Respawn based on a frame rate-independent chance.
                 if (Random.value < gameConfig.spawnChanceEachTick * Time.deltaTime)
                 {
-                    // If the random check passes, instantiate a new dust ball
-                    GameObject newDustBall = Instantiate(DustBallPrefab, dustSpawner.position, dustSpawner.rotation);
-
-                    // Update the dictionary with the reference to the newly created GameObject
-                    ActiveDustBalls[dustSpawner] = newDustBall;
+                    GameObject newDustBall = Instantiate(dustBallPrefab, spawner.position, spawner.rotation);
+                    _activeDustBalls[spawner] = newDustBall; // Update the dictionary reference
                 }
             }
         }
+    }
 
+    // --- Public API ---
+
+    public void OnDustBallCollected()
+    {
+        CollectedDustBalls++;
+        Debug.Log($"Dust balls collected: {CollectedDustBalls}/{TotalDustBallsInLevel}");
+        // Here you could update UI or check other conditions.
     }
 
     public void ReloadCurrentScene()
     {
-        // Get the index of the currently active scene.
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // Reload the scene using its index.
         SceneManager.LoadScene(currentSceneIndex);
+        UIGameManager.Instance.ResetUI();
     }
 
     public void OnDeath()
@@ -113,16 +127,8 @@ public class GameManager : MonoBehaviour
         UIGameManager.Instance.OnDeath();
     }
 
-    public void OnWinLevel(int LevelIndex)
+    public void OnWinLevel(int levelIndex)
     {
-        UIGameManager.Instance.OnWinLevel(LevelIndex);
-    }
-
-    // You can add public methods here to be called from other scripts
-    public void OnDustBallCollected()
-    {
-        collectedDustBalls++;
-        // Check for win condition, update UI, etc.
-        Debug.Log($"Dust balls collected: {collectedDustBalls}/{totalDustBallsInLevel}");
+        UIGameManager.Instance.OnWinLevel(levelIndex);
     }
 }

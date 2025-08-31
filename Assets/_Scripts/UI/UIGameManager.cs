@@ -40,6 +40,12 @@ public class UIGameManager : MonoBehaviour
         DeathScreen.gameObject.SetActive(true);
     }
 
+    public void ResetUI()
+    {
+        WinScreen.gameObject.SetActive(false);
+        DeathScreen.gameObject.SetActive(false);
+    }
+
     public void OnWinLevel(int LevelIndex)
     {
         WinScreen.gameObject.SetActive(true);
