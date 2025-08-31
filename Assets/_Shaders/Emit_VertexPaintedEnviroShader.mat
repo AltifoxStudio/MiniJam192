@@ -46,10 +46,12 @@ Material:
     - _AlphaToMask: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _BookVariationPower: 1
     - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 0
     - _EmissiveGradientPower: 1.25
+    - _ISBOOKMODE: 0
     - _ISEMISSIVE: 1
     - _LESSALPHA_EMISSIVE: 1
     - _QueueControl: 0
@@ -57,6 +59,7 @@ Material:
     - _ReceiveShadows: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _USEALPHA: 0
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
