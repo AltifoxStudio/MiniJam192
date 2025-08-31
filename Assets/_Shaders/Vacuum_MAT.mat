@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
+  - _USEALPHA
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -45,10 +46,12 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 0
+    - _BookVariationPower: 1
     - _CastShadows: 1
     - _Cull: 0
     - _DstBlend: 10
     - _EmissiveGradientPower: 1
+    - _ISBOOKMODE: 0
     - _ISEMISSIVE: 0
     - _LESSALPHA_EMISSIVE: 0
     - _QueueControl: 0
@@ -56,6 +59,7 @@ Material:
     - _ReceiveShadows: 1
     - _SrcBlend: 5
     - _Surface: 1
+    - _USEALPHA: 1
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0
