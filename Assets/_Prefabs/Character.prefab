@@ -391,12 +391,36 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
-  MoveSideTextures:
+  MoveLeftTextures:
+  - {fileID: 2800000, guid: 47e4be02d9713c14ca2d4cf83d8d15c2, type: 3}
+  MoveLeftFXTextures:
   - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
-  MoveUpTextures:
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  MoveRightTextures:
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  MoveRightFXTextures:
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  MoveUpRightTextures:
+  - {fileID: 2800000, guid: 936969127b06cf141904042bb49625c7, type: 3}
+  MoveUpRightFXTextures:
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  MoveUpLeftTextures:
   - {fileID: 2800000, guid: 7db7dd154c4a5804e831c253f899085c, type: 3}
-  MoveDownTextures:
+  MoveUpLeftFXTextures:
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  MoveDownLeftTextures:
+  - {fileID: 2800000, guid: 4c187f83c6d96014b85bd358201f358d, type: 3}
+  MoveDownLeftFXTextures:
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  MoveDownRightTextures:
   - {fileID: 2800000, guid: a17524aaa794c1c4fbfbef8f83bf362d, type: 3}
+  MoveDownRightFXTextures:
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
+  - {fileID: 2800000, guid: d28d0f27de955494eb1e533bbf5345ac, type: 3}
   groundCheckPoint: {fileID: 5138773262464640872}
   groundCheckDistance: 0.1
   groundCheckRadius: 0.1
@@ -456,6 +480,7 @@ GameObject:
   - component: {fileID: 4965772087589176804}
   - component: {fileID: 1234472812845459273}
   - component: {fileID: 3768654598786382341}
+  - component: {fileID: 4132284404397094414}
   m_Layer: 3
   m_Name: Quad
   m_TagString: Untagged
@@ -471,13 +496,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8932039725741953064}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6093071944970650349}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &1234472812845459273
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -531,3 +556,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4132284404397094414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8932039725741953064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d731301b3cd604b8aea232f146d5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleWithDistance: 0

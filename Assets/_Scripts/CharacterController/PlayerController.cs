@@ -10,6 +10,12 @@ public enum MoveDirection
     Idle,
 }
 
+public enum LookDirection
+{
+    Left,
+    Right,
+}
+
 public class PlayerController : MonoBehaviour
 {
     // Actions
@@ -24,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public GameObject LookAtContainer;
     public bool infiniteJump;
     public LayerMask groundLayer;
-    
+
     // Gameplay variables
     private float moveSpeed;
     private float jumpForce; // We now use jumpForce instead of jumpSpeed
@@ -34,15 +40,24 @@ public class PlayerController : MonoBehaviour
 
     // Animation 
     [Header("Animation Textures")]
-    public Texture2D[] MoveSideTextures;
-    public Texture2D[] MoveUpTextures;
-    public Texture2D[] MoveDownTextures;
+    public Texture2D[] MoveLeftTextures;
+    public Texture2D[] MoveLeftFXTextures;
+    public Texture2D[] MoveRightTextures;
+    public Texture2D[] MoveRightFXTextures;
+    public Texture2D[] MoveUpRightTextures;
+    public Texture2D[] MoveUpRightFXTextures;
+    public Texture2D[] MoveUpLeftTextures;
+    public Texture2D[] MoveUpLeftFXTextures;
+    public Texture2D[] MoveDownLeftTextures;
+    public Texture2D[] MoveDownLeftFXTextures;
+    public Texture2D[] MoveDownRightTextures;
+    public Texture2D[] MoveDownRightFXTextures;
 
     // Ground Check variables
-    public Transform groundCheckPoint; 
+    public Transform groundCheckPoint;
     public float groundCheckDistance = 0.3f;
     public float groundCheckRadius = 0.2f;
-    
+
     // Components and private variables
     private Rigidbody rb;
     private Renderer rend;
@@ -50,6 +65,8 @@ public class PlayerController : MonoBehaviour
     private MaterialPropertyBlock bunnyTexture;
     private float dustSpendMoving;
     private Coroutine dashCoroutine;
+
+    private LookDirection lookDirection;
 
     private void Awake()
     {
@@ -85,7 +102,7 @@ public class PlayerController : MonoBehaviour
             jumpAction = InputSystem.actions.FindAction("Jump");
             dashAction = InputSystem.actions.FindAction("Dash");
         }
-        
+
         // Subscribe the Jump method directly to the 'performed' event
         jumpAction.performed += Jump;
     }
@@ -102,6 +119,9 @@ public class PlayerController : MonoBehaviour
         isGrounded = CheckGround();
         HandleMovement();
         HandleDash();
+    }
+
+    private void Update() {
         HandleRotationAndAnimation();
     }
 
@@ -117,7 +137,7 @@ public class PlayerController : MonoBehaviour
         // Handle dust emission
         GetComponent<HasDust>().GiveDust(Vector3.Magnitude(horizontalMove) * dustSpendMoving);
     }
-    
+
     private void Jump(InputAction.CallbackContext context)
     {
         // Only allow jumping if the player is on the ground
@@ -125,6 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             // Apply an instant upward force to the Rigidbody
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            SFXManager.Instance.jumpSFX.PreloadAndPlay();
         }
     }
 
@@ -144,39 +165,76 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    
+
     private void HandleRotationAndAnimation()
     {
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         MoveDirection moveDirection = evalMoveDirection(moveValue);
 
-        // Set texture based on movement direction
-        switch (moveDirection)
-        {
-            case MoveDirection.Up:
-                bunnyTexture.SetTexture("_playerSprite", MoveUpTextures[0]);
-                break;
-            case MoveDirection.Down:
-                bunnyTexture.SetTexture("_playerSprite", MoveDownTextures[0]);
-                break;
-            case MoveDirection.Side:
-                bunnyTexture.SetTexture("_playerSprite", MoveSideTextures[0]);
-                break;
-        }
-        rend.SetPropertyBlock(bunnyTexture);
 
         // Flip the player sprite
         if (moveValue.x < -0.1f)
         {
-            playerQuad.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            lookDirection = LookDirection.Left;
         }
         else if (moveValue.x > 0.1f)
         {
-            playerQuad.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            lookDirection = LookDirection.Right;
         }
 
+        // Set texture based on movement direction
+        switch (moveDirection)
+        {
+            case MoveDirection.Up:
+                if (lookDirection == LookDirection.Left)
+                {
+                    bunnyTexture.SetTexture("_playerSprite", MoveUpLeftTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX0", MoveUpLeftFXTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX1", MoveUpLeftFXTextures[1]);
+                }
+                else
+                {
+                    bunnyTexture.SetTexture("_playerSprite", MoveUpRightTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX0", MoveUpRightFXTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX1", MoveUpRightFXTextures[1]);
+                }
+                break;
+
+           case MoveDirection.Down:
+                if (lookDirection == LookDirection.Left)
+                {
+                    bunnyTexture.SetTexture("_playerSprite", MoveDownLeftTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX0", MoveDownLeftFXTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX1", MoveDownLeftFXTextures[1]);
+                }
+                else
+                {
+                    bunnyTexture.SetTexture("_playerSprite", MoveDownRightTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX0", MoveDownRightFXTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX1", MoveDownRightFXTextures[1]);
+                }
+                break;
+
+           case MoveDirection.Side:
+                if (lookDirection == LookDirection.Left)
+                {
+                    bunnyTexture.SetTexture("_playerSprite", MoveLeftTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX0", MoveLeftFXTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX1", MoveLeftFXTextures[1]);
+                }
+                else
+                {
+                    bunnyTexture.SetTexture("_playerSprite", MoveRightTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX0", MoveRightFXTextures[0]);
+                    bunnyTexture.SetTexture("_playerFX1", MoveRightFXTextures[1]);
+                }
+                break;
+        }
+        rend.SetPropertyBlock(bunnyTexture);
+
+
         // Make the parent object look at the target
-        LookAtContainer.transform.LookAt(lookAtTarget.transform);
+        //LookAtContainer.transform.LookAt(lookAtTarget.transform);
     }
 
     private bool CheckGround()
@@ -202,7 +260,7 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.Instance.OnDeath();
     }
-    
+
     private IEnumerator CR_Dash(float dashTime)
     {
         float originalSpeed = gameConfig.bunnyMS;

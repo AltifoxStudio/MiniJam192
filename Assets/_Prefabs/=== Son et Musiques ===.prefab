@@ -215,6 +215,7 @@ MonoBehaviour:
   menuMusicName: InGameMusic
   inGameMusicName: MenuMusic
   first: 1
+  RandomLayerChance: 0.3
 --- !u!1 &1558930603466876746
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +494,52 @@ Transform:
   - {fileID: 5497789330236871510}
   m_Father: {fileID: 6135677354220986920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4672291767536373344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7479308487218726714}
+  - component: {fileID: 4025370702689688124}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7479308487218726714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4672291767536373344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5010599174212305783}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4025370702689688124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4672291767536373344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9c0a26be015a24ab1c67d808a72f2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpSFX: {fileID: 4319390981871081660}
+  collectDustSFX: {fileID: 4785248162353928540}
 --- !u!1 &4684205327313188224
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +574,7 @@ Transform:
   - {fileID: 1694337003233587347}
   - {fileID: 5699507775925641477}
   - {fileID: 4330665149270268910}
+  - {fileID: 7479308487218726714}
   m_Father: {fileID: 6135677354220986920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7391545074804820736

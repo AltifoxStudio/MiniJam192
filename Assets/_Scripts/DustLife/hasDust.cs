@@ -39,6 +39,7 @@ public class HasDust : MonoBehaviour
         if (gameObject.tag == "Player")
         {
             UIGameManager.Instance.SetBunnyAmount(dustAmount);
+            SFXManager.Instance.collectDustSFX.PreloadAndPlay();
         }
     }
 
