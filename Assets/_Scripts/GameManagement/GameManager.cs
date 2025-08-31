@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using AltifoxStudio.AltifoxAudioManager;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
@@ -124,10 +125,24 @@ public class GameManager : MonoBehaviour
     public void OnDeath()
     {
         UIGameManager.Instance.OnDeath();
+        foreach (Transform spawner in _activeVacuums.Keys.ToList())
+        {
+            if (_activeVacuums[spawner] != null) // Check if the dust ball was destroyed
+            {
+                _activeVacuums[spawner].GetComponent<VacuumCleaner>().SoundPlayer.FadeOut(0, InterpolationType.Linear);
+            }
+        }
     }
 
     public void OnWinLevel(int levelIndex)
     {
         UIGameManager.Instance.OnWinLevel(levelIndex);
+        foreach (Transform spawner in _activeVacuums.Keys.ToList())
+        {
+            if (_activeVacuums[spawner] != null) // Check if the dust ball was destroyed
+            {
+                _activeVacuums[spawner].GetComponent<VacuumCleaner>().SoundPlayer.FadeOut(0, InterpolationType.Linear);
+            }
+        }
     }
 }
