@@ -56,10 +56,21 @@ public class UIGameManager : MonoBehaviour
                 break;
 
             case GameState.win:
-                Debug.Log("current level "+GameManager.Instance.currentLevelIndex);
+                string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+                Debug.Log(sceneName);
+                int currentLevelIndex = -1;
+                if (sceneName == "Level1")
+                {
+                    currentLevelIndex = 0;
+                }
+                if (sceneName == "Level2")
+                {
+                    currentLevelIndex = 1;
+                }
+                Debug.Log("current level "+currentLevelIndex);
                 for (int i = 0; i < WinScreens.Length; i++)
                 {
-                    if (i == GameManager.Instance.currentLevelIndex)
+                    if (i == currentLevelIndex)
                     {
                         WinScreens[i].SetActive(true);
                     }

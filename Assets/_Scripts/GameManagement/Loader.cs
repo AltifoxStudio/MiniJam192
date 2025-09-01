@@ -10,10 +10,6 @@ public class Loader : MonoBehaviour
     [Header("Persistent Systems (Don't Destroy On Load)")]
     [SerializeField] private GameObject uiPrefab;
     [SerializeField] private GameObject musicPrefab;
-
-    [Header("Initial Level Prefabs")]
-    [SerializeField] private GameObject environmentAnd3DPrefab;
-    [SerializeField] private GameObject gameDesignPrefab; // Contains spawners
     [SerializeField] private GameObject gameLogicPrefab;  // Contains GameManager
 
     private void Awake()
@@ -31,27 +27,15 @@ public class Loader : MonoBehaviour
         InstantiatePersistentSystems();
     }
 
-    private void OnEnable()
-    {
-        // Subscribe to the sceneLoaded event
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        // Unsubscribe to prevent errors and memory leaks
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
     // This method will be called every time a new scene finishes loading
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Now, we load the level content every time a scene loads.
-        LoadLevelContent();
-    }
     
     private void InstantiatePersistentSystems()
     {
+        if (gameLogicPrefab != null)
+        {
+            Instantiate(gameLogicPrefab, transform);
+        }
+
         if (uiPrefab != null)
         {
             Instantiate(uiPrefab, transform);
@@ -61,21 +45,5 @@ public class Loader : MonoBehaviour
         {
             Instantiate(musicPrefab, transform);
         }
-    }
-
-    public void LoadLevelContent()
-    {
-        Debug.Log("Loading level content for scene: " + SceneManager.GetActiveScene().name);
-
-        // Instantiate all the necessary parts of the level.
-        if (environmentAnd3DPrefab == null || gameDesignPrefab == null || gameLogicPrefab == null)
-        {
-            Debug.LogError("A core level prefab is missing from the Loader inspector!");
-            return;
-        }
-
-        Instantiate(environmentAnd3DPrefab, Vector3.zero, Quaternion.identity);
-        Instantiate(gameDesignPrefab, Vector3.zero, Quaternion.identity);
-        Instantiate(gameLogicPrefab, Vector3.zero, Quaternion.identity);
     }
 }

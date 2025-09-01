@@ -65,6 +65,15 @@ public class GameManager : MonoBehaviour
 
     private void InitLevel()
     {
+        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (sceneName == "level1")
+        {
+            currentLevelIndex = 0;
+        }
+        if (sceneName == "level2")
+        {
+            currentLevelIndex = 1;
+        }
         _activeVacuums.Clear();
         _activeDustBalls.Clear();
         // Find all spawner locations in the scene
