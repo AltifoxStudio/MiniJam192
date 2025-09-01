@@ -21,7 +21,6 @@ public class Loader : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         // Instantiate persistent systems ONLY ONCE
         InstantiatePersistentSystems();
