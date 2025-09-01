@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<Transform, GameObject> _activeVacuums = new Dictionary<Transform, GameObject>();
 
     public int currentLevelIndex = 0;
+    private bool first = true;
 
     private void Awake()
     {
@@ -54,9 +55,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // Initialize the level once the scene is fully loaded and all Awakes are done.
-        InitLevel();
+        //InitLevel();
         gameState = GameState.Play;
     }
+
+    
 
     private void StartGame()
     {
@@ -65,15 +68,6 @@ public class GameManager : MonoBehaviour
 
     private void InitLevel()
     {
-        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-        if (sceneName == "level1")
-        {
-            currentLevelIndex = 0;
-        }
-        if (sceneName == "level2")
-        {
-            currentLevelIndex = 1;
-        }
         _activeVacuums.Clear();
         _activeDustBalls.Clear();
         // Find all spawner locations in the scene
@@ -104,16 +98,21 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameState == GameState.Play)
+        if (first)
         {
-            // Check for win condition: all vacuums are destroyed.
-                int remainingVacuums = _activeVacuums.Values.Count(v => v != null);
-            if (remainingVacuums == 0)
-            {
-                OnWinLevel();
-                this.enabled = false; // Disable component to stop further checks.
-            }
+            StartGame();
+            first = false;
         }
+        if (gameState == GameState.Play)
+            {
+                // Check for win condition: all vacuums are destroyed.
+                int remainingVacuums = _activeVacuums.Values.Count(v => v != null);
+                if (remainingVacuums == 0)
+                {
+                    OnWinLevel();
+                    this.enabled = false; // Disable component to stop further checks.
+                }
+            }
 
     }
 
@@ -156,6 +155,8 @@ public class GameManager : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
         UIGameManager.Instance.ResetUI();
+        Debug.Log("Reloading");
+        first = true;
     }
 
     public void OnDeath()
