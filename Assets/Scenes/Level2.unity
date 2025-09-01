@@ -332,6 +332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level 02 Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7048818433254881574, guid: e407828adcbcabd418fd837778a1692b, type: 3}
+      propertyPath: m_BoxSize.x
+      value: 11.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
